@@ -8,7 +8,7 @@
       </el-carousel>
     </div>
     <div class="fd-container">
-      <!--      Tab-->
+      <!--      今天推荐的Tab-->
       <div class="flex justify-around mt-6 mb-10">
         <div :class="{'active':tab===0}" class="fd-button" @click="changeTab(0)">首页推荐</div>
         <div :class="{'active':tab===1}" class="fd-button" @click="changeTab(1)">个性推荐</div>
@@ -51,8 +51,19 @@
           </div>
         </div>
       </div>
-      <!--      排行榜-->
-      <div class="mt-24 text-2xl border-b-4 border-black pb-4 inline-block">排行榜</div>
+      <!--      排行榜文字标签-->
+      <div class="mt-24 text-2xl border-b-4 border-black pb-4 inline-block mb-8">排行榜</div>
+      <!--      排行榜的Tab-->
+      <div class="flex justify-around">
+        <div :class="{'active':rankTab===0}" class="fd-button" @click="changeRankTab(0)">视频榜</div>
+        <div :class="{'active':rankTab===1}" class="fd-button" @click="changeRankTab(1)">文字榜</div>
+        <div :class="{'active':rankTab===2}" class="fd-button" @click="changeRankTab(2)">艺术榜</div>
+        <div :class="{'active':rankTab===3}" class="fd-button" @click="changeRankTab(3)">好物榜</div>
+      </div>
+      <!--      排行榜的内容-->
+      <div class="mt-12 flex justify-between flex-wrap">
+        <!--        图片部分内容-->
+      </div>
     </div>
   </div>
 </template>
@@ -63,13 +74,20 @@ import Vue from 'vue'
 export default Vue.extend({
   data () {
     return {
-      tab: 0, // 0-首页推荐，1-个性推荐，2-最新发布
+      tab: 0, // 10-首页推荐，11-个性推荐，12-最新发布
+      rankTab: 0,
       images: [
-        'https://image.fendy5.cn/s/PyFHOprAVGQJOD06.png'
+        'https://image.fendy5.cn/s/PyFHOprAVGQJOD06.png',
+        'https://image.fendy5.cn/s/u7CG5B8qQUIoY2Wf.png'
       ]
     }
   },
   methods: {
+    // 切换排行榜
+    changeRankTab (index: number) {
+      this.rankTab = index
+    },
+    // 切换推荐
     changeTab (index: number) {
       this.tab = index
     }

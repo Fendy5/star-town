@@ -1,18 +1,21 @@
 <template>
   <div>
     <st-header />
-    <div class="pt-12"></div>
+    <div class="pt-12" />
     <Nuxt />
+    <st-footer />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import header from '@/layouts/header.vue'
+import footer from '@/layouts/footer.vue'
 
 export default Vue.extend({
   components: {
-    'st-header': header
+    'st-header': header,
+    'st-footer': footer
   }
 })
 </script>
