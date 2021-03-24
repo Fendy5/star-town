@@ -27,7 +27,7 @@
             </div>
           </div>
           <div class="pl-4 pb-2 bg-white rounded-xl">
-            <div class="py-2 text-black">主题主题主题主题主题主题...</div>
+            <div class="py-2 text-black cursor-pointer">主题主题主题主题主题主题...</div>
             <!--   文字文章-->
             <p class="text-secondary pb-2">文字-文章</p>
             <!--   页眉-->
@@ -35,12 +35,12 @@
               <!--   评论、喜欢-->
               <div class="flex">
                 <!--   喜欢-->
-                <div class="flex items-center pr-2">
+                <div class="flex items-center pr-2 cursor-pointer">
                   <svg-icon icon-class="like" class="w-4 h-4 mr-1" />
                   <div class="">100+</div>
                 </div>
                 <!--  评论-->
-                <div class="flex items-center">
+                <div class="flex items-center cursor-pointer">
                   <svg-icon icon-class="comment" class="w-4 h-4 mr-1" />
                   <div class="">100+</div>
                 </div>
@@ -61,8 +61,42 @@
         <div :class="{'active':rankTab===3}" class="fd-button" @click="changeRankTab(3)">好物榜</div>
       </div>
       <!--      排行榜的内容-->
-      <div class="mt-12 flex justify-between flex-wrap">
-        <!--        图片部分内容-->
+      <!--        图片部分内容-->
+      <div class="mt-12 pb-40 rounded-xl star-recommended flex justify-between flex-wrap">
+        <div v-for="item in 3" :key="item" class="rounded-2xl item mb-6">
+          <div :style="{ 'background-image': 'url(' + images[1] + ')' }" class="img-bg2">
+            <div class="flex justify-between pt-4">
+              <div class="flex ml-4">
+                <img class="w-7 h-7 rounded-full" src="https://image.fendy5.cn/s/EJ34YcPTIMsg7RwX.png" alt="">
+                <div class="text-white pl-2">昵称</div>
+              </div>
+              <button class="bg-primary text-white rounded-2xl w-16 h-8 mr-4">关注</button>
+            </div>
+          </div>
+          <div class="pl-4 pb-2 bg-white rounded-xl">
+            <div class="py-2 text-black cursor-pointer">主题主题主题主题主题主题...</div>
+            <!--   文字文章-->
+            <p class="text-secondary pb-2">文字-文章</p>
+            <!--   页眉-->
+            <div class="flex justify-between">
+              <!--   评论、喜欢-->
+              <div class="flex">
+                <!--   喜欢-->
+                <div class="flex items-center pr-2 cursor-pointer">
+                  <svg-icon icon-class="like" class="w-4 h-4 mr-1" />
+                  <div class="">100+</div>
+                </div>
+                <!--  评论-->
+                <div class="flex items-center cursor-pointer">
+                  <svg-icon icon-class="comment" class="w-4 h-4 mr-1" />
+                  <div class="">100+</div>
+                </div>
+              </div>
+              <!--   时间-->
+              <div class="text-secondary pr-4">21-03-16 22:23</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -101,6 +135,10 @@ export default Vue.extend({
     .img-bg {
       width: 274px;
       height: 194px;
+    }
+    .img-bg2 {
+      width: 353px;
+      height: 337px;
     }
   }
 }

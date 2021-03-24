@@ -22,6 +22,7 @@ module.exports = {
         '12xl': '6.5rem'
       }),
       textColor: _ => ({
+        primary: 'linear-gradient(90deg, #833AB4 0%, #E94057 50.52%, #F27121 100%)',
         secondary: '#9CA3AF'
       })
     }

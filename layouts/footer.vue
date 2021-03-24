@@ -1,5 +1,5 @@
 <template>
-  <footer>
+  <footer class="bg-white pt-20">
     <!--    网站相关、传送门-->
     <div class="fd-container grid grid-cols-4">
       <!--      网站相关-->
@@ -36,7 +36,7 @@
       </div>
     </div>
     <!--    联系方式、版权-->
-    <div class="flex justify-around mb-8">
+    <div class="flex justify-around pb-8">
       <p>联系我们：0754-81231234</p>
       <p>Copyright ©2021 Star Town All rights reserved</p>
     </div>
@@ -45,6 +45,7 @@
 
 <script>
 export default {
+  name: 'Footer',
   data () {
     return {}
   }

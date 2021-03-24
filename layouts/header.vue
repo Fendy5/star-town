@@ -16,24 +16,107 @@
         <router-link to="my">
           <svg-icon class="w-6 h-6" icon-class="avatar" />
         </router-link>
-        <div class="flex pl-4 items-center">
-          <router-link class="px-2 text-sm" to="login">登录</router-link>
+        <div class="flex pl-4 items-center cursor-pointer" @click="showLogin">
+          <div class="px-2 text-sm">登录</div>
           <div class="fd-w-2 h-3 bg-gray-600" />
-          <router-link class="px-2 text-sm" to="register">注册</router-link>
+          <div class="px-2 text-sm">注册</div>
         </div>
       </div>
     </div>
+    <div v-if="loginActive===0" ref="login" class="login rounded-2xl px-11 pb-14">
+      <!--      登录注册切换的Tab-->
+      <div class="mt-8 flex justify-around">
+        <div :class="{'login-active':loginActive===0}" class="text-2xl cursor-pointer" @click="changeLogin(0)">登录</div>
+        <div :class="{'login-active':loginActive===1}" class="text-2xl cursor-pointer" @click="changeLogin(1)">注册</div>
+      </div>
+      <div class="mt-9">
+        <input type="text" class="w-full py-3 px-9 rounded-3xl text-xl border-2 border-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="手机号码">
+      </div>
+      <div class="mt-9">
+        <input type="text" class="w-full py-3 px-9 rounded-3xl text-xl border-2 border-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="密码">
+      </div>
+      <div class="flex justify-end mt-4">
+        <router-link to="/forget" class="text-sm">忘记密码？</router-link>
+      </div>
+      <button class="bg-primary text-white rounded-full h-16 text-xl mt-12 w-full focus:outline-none">立即登录</button>
+    </div>
+    <div v-else ref="login" class="login rounded-2xl px-11 pb-14">
+      <!--      登录注册切换的Tab-->
+      <div class="mt-8 flex justify-around">
+        <div :class="{'login-active':loginActive===0}" class="text-2xl cursor-pointer" @click="changeLogin(0)">登录</div>
+        <div :class="{'login-active':loginActive===1}" class="text-2xl cursor-pointer" @click="changeLogin(1)">注册</div>
+      </div>
+      <div class="mt-9">
+        <input type="text" class="w-full py-3 px-9 rounded-3xl text-xl border-2 border-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="手机号码">
+      </div>
+      <div class="mt-9">
+        <input type="password" class="w-full py-3 px-9 rounded-3xl text-xl border-2 border-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="密码">
+      </div>
+      <div class="mt-9">
+        <input type="password" class="w-full py-3 px-9 rounded-3xl text-xl border-2 border-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="密码">
+      </div>
+      <div class="flex justify-end mt-4">
+        <router-link to="/forget" class="text-sm">忘记密码？</router-link>
+      </div>
+      <button class="bg-primary text-white rounded-full h-16 text-xl mt-12 w-full focus:outline-none">立即注册</button>
+    </div>
+    <div id="mask" @click="closeLogin" />
   </header>
 </template>
 
 <script>
 export default {
   data () {
-    return {}
+    return {
+      loginActive: 0 // 0-登录，1-注册
+    }
+  },
+  // mounted () {
+  //   document.getElementById('mask').addEventListener('click', function (params) {
+  //     console.log(params)
+  //   })
+  // },
+  methods: {
+    closeLogin () {
+      const mask = document.getElementById('mask')
+      mask.style.display = 'none'
+      this.$refs.login.style.display = 'none'
+    },
+    showLogin () {
+      const mask = document.getElementById('mask')
+      mask.style.display = 'block'
+      this.$refs.login.style.display = 'block'
+    },
+    changeLogin (type) {
+      this.loginActive = type
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
+.login {
+  width: 590px;
+  z-index: 201;
+  background: #fff;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  display: none;
+  transform: translate(-50%, -50%);
+}
+.login-active {
+  @apply text-purple-500 border-b-2 pb-4 border-purple-500
+}
+#mask {
+  z-index: 200;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .5;
+  display: none;
+  background: #000;
+}
 </style>
