@@ -14,6 +14,13 @@ export default {
     ]
   },
 
+  server: {
+    port: 6015, // default: 3000
+    host: '0.0.0.0' // default: localhost
+  },
+
+  loading: { color: '#7961bd' },
+
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
     '@/assets/css/_common.scss'
