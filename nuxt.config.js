@@ -15,7 +15,7 @@ export default {
   },
 
   server: {
-    port: 6015, // default: 3000
+    port: 7015, // default: 3000
     host: '0.0.0.0' // default: localhost
   },
 
