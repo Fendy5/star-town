@@ -10,9 +10,9 @@
     <div class="fd-container">
       <!--      今天推荐的Tab-->
       <div class="flex justify-around mt-6 mb-10">
-        <div :class="{'active':tab===0}" class="fd-button" @click="changeTab(0)">首页推荐</div>
-        <div :class="{'active':tab===1}" class="fd-button" @click="changeTab(1)">个性推荐</div>
-        <div :class="{'active':tab===2}" class="fd-button" @click="changeTab(2)">最新发布</div>
+        <fd-button none size="medium" :class="{'bg-primary':tab===0}" @click="changeTab(0)">首页推荐</fd-button>
+        <fd-button none size="medium" :class="{'bg-primary':tab===1}" @click="changeTab(1)">个性推荐</fd-button>
+        <fd-button none size="medium" :class="{'bg-primary':tab===2}" @click="changeTab(2)">最新发布</fd-button>
       </div>
       <!--    推荐内容-->
       <div class="rounded-xl star-recommended flex justify-between flex-wrap">
@@ -65,12 +65,12 @@
       <div class="mt-12 pb-40 rounded-xl star-recommended flex justify-between flex-wrap">
         <div v-for="item in 3" :key="item" class="rounded-2xl item mb-6">
           <div :style="{ 'background-image': 'url(' + images[1] + ')' }" class="img-bg2">
-            <div class="flex justify-between pt-4">
+            <div class="flex justify-between pt-4 px-4">
               <div class="flex ml-4">
                 <img class="w-7 h-7 rounded-full" src="https://image.fendy5.cn/s/EJ34YcPTIMsg7RwX.png" alt="">
                 <div class="text-white pl-2">昵称</div>
               </div>
-              <button class="bg-primary text-white rounded-2xl w-16 h-8 mr-4">关注</button>
+              <fd-button size="small">关注</fd-button>
             </div>
           </div>
           <div class="pl-4 pb-2 bg-white rounded-xl">
@@ -104,8 +104,12 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import fdButton from '@/components/FdButton.vue'
 
 export default Vue.extend({
+  components: {
+    fdButton
+  },
   data () {
     return {
       tab: 0, // 10-首页推荐，11-个性推荐，12-最新发布
@@ -145,9 +149,6 @@ export default Vue.extend({
 
 .carousel {
   background: linear-gradient(90deg, #833AB4 0%, #E94057 50.52%, #F27121 100%);
-}
-.fd-button {
-  @apply pt-4 pb-4 pl-8 pr-8 rounded-12xl cursor-pointer
 }
 
 .el-carousel__item {
