@@ -2,6 +2,12 @@ pipeline {
   agent any
   stages {
     stage('build') {
+      agent {
+        node {
+          label 'NodeJS'
+        }
+
+      }
       steps {
         sh '''
             node -v
