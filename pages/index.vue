@@ -51,53 +51,92 @@
           </div>
         </div>
       </div>
-      <!--      排行榜文字标签-->
-      <div class="mt-24 text-2xl border-b-4 border-black pb-4 inline-block mb-8">排行榜</div>
-      <!--      排行榜的Tab-->
-      <div class="flex justify-around">
-        <div :class="{'active':rankTab===0}" class="fd-button" @click="changeRankTab(0)">视频榜</div>
-        <div :class="{'active':rankTab===1}" class="fd-button" @click="changeRankTab(1)">文字榜</div>
-        <div :class="{'active':rankTab===2}" class="fd-button" @click="changeRankTab(2)">艺术榜</div>
-        <div :class="{'active':rankTab===3}" class="fd-button" @click="changeRankTab(3)">好物榜</div>
-      </div>
-      <!--      排行榜的内容-->
-      <!--        图片部分内容-->
-      <div class="mt-12 pb-40 rounded-xl star-recommended flex justify-between flex-wrap">
-        <div v-for="item in 3" :key="item" class="rounded-2xl item mb-6">
-          <div :style="{ 'background-image': 'url(' + images[1] + ')' }" class="img-bg2">
-            <div class="flex justify-between pt-4 px-4">
-              <div class="flex ml-4">
-                <img class="w-7 h-7 rounded-full" src="https://image.fendy5.cn/s/EJ34YcPTIMsg7RwX.png" alt="">
-                <div class="text-white pl-2">昵称</div>
+      <!--      排行榜-->
+      <tab :tabs="ranks" title="排行榜">
+        <div class="mt-12 pb-40 rounded-xl star-recommended flex justify-between flex-wrap">
+          <div v-for="item in 3" :key="item" class="rounded-2xl item mb-6">
+            <div :style="{ 'background-image': 'url(' + images[1] + ')' }" class="img-bg2">
+              <div class="flex justify-between pt-4 px-4">
+                <div class="flex ml-4">
+                  <img class="w-7 h-7 rounded-full" src="https://image.fendy5.cn/s/EJ34YcPTIMsg7RwX.png" alt="">
+                  <div class="text-white pl-2">昵称</div>
+                </div>
+                <fd-button size="small">关注</fd-button>
               </div>
-              <fd-button size="small">关注</fd-button>
             </div>
-          </div>
-          <div class="pl-4 pb-2 bg-white rounded-xl">
-            <div class="py-2 text-black cursor-pointer">主题主题主题主题主题主题...</div>
-            <!--   文字文章-->
-            <p class="text-secondary pb-2">文字-文章</p>
-            <!--   页眉-->
-            <div class="flex justify-between">
-              <!--   评论、喜欢-->
-              <div class="flex">
-                <!--   喜欢-->
-                <div class="flex items-center pr-2 cursor-pointer">
-                  <svg-icon icon-class="like" class="w-4 h-4 mr-1" />
-                  <div class="">100+</div>
+            <div class="pl-4 pb-2 bg-white rounded-xl">
+              <div class="py-2 text-black cursor-pointer">主题主题主题主题主题主题...</div>
+              <!--   文字文章-->
+              <p class="text-secondary pb-2">文字-文章</p>
+              <!--   页眉-->
+              <div class="flex justify-between">
+                <!--   评论、喜欢-->
+                <div class="flex">
+                  <!--   喜欢-->
+                  <div class="flex items-center pr-2 cursor-pointer">
+                    <svg-icon icon-class="like" class="w-4 h-4 mr-1" />
+                    <div class="">100+</div>
+                  </div>
+                  <!--  评论-->
+                  <div class="flex items-center cursor-pointer">
+                    <svg-icon icon-class="comment" class="w-4 h-4 mr-1" />
+                    <div class="">100+</div>
+                  </div>
                 </div>
-                <!--  评论-->
-                <div class="flex items-center cursor-pointer">
-                  <svg-icon icon-class="comment" class="w-4 h-4 mr-1" />
-                  <div class="">100+</div>
-                </div>
+                <!--   时间-->
+                <div class="text-secondary pr-4">21-03-16 22:23</div>
               </div>
-              <!--   时间-->
-              <div class="text-secondary pr-4">21-03-16 22:23</div>
             </div>
           </div>
         </div>
-      </div>
+      </tab>
+      <!--      &lt;!&ndash;      排行榜文字标签&ndash;&gt;-->
+      <!--      <div class="mt-24 text-2xl border-b-4 border-black pb-4 inline-block mb-8">排行榜</div>-->
+      <!--      &lt;!&ndash;      排行榜的Tab&ndash;&gt;-->
+      <!--      <div class="flex justify-around">-->
+      <!--        <div :class="{'active':rankTab===0}" class="fd-button" @click="changeRankTab(0)">视频榜</div>-->
+      <!--        <div :class="{'active':rankTab===1}" class="fd-button" @click="changeRankTab(1)">文字榜</div>-->
+      <!--        <div :class="{'active':rankTab===2}" class="fd-button" @click="changeRankTab(2)">艺术榜</div>-->
+      <!--        <div :class="{'active':rankTab===3}" class="fd-button" @click="changeRankTab(3)">好物榜</div>-->
+      <!--      </div>-->
+      <!--      &lt;!&ndash;      排行榜的内容&ndash;&gt;-->
+      <!--      &lt;!&ndash;        图片部分内容&ndash;&gt;-->
+      <!--      <div class="mt-12 pb-40 rounded-xl star-recommended flex justify-between flex-wrap">-->
+      <!--        <div v-for="item in 3" :key="item" class="rounded-2xl item mb-6">-->
+      <!--          <div :style="{ 'background-image': 'url(' + images[1] + ')' }" class="img-bg2">-->
+      <!--            <div class="flex justify-between pt-4 px-4">-->
+      <!--              <div class="flex ml-4">-->
+      <!--                <img class="w-7 h-7 rounded-full" src="https://image.fendy5.cn/s/EJ34YcPTIMsg7RwX.png" alt="">-->
+      <!--                <div class="text-white pl-2">昵称</div>-->
+      <!--              </div>-->
+      <!--              <fd-button size="small">关注</fd-button>-->
+      <!--            </div>-->
+      <!--          </div>-->
+      <!--          <div class="pl-4 pb-2 bg-white rounded-xl">-->
+      <!--            <div class="py-2 text-black cursor-pointer">主题主题主题主题主题主题...</div>-->
+      <!--            &lt;!&ndash;   文字文章&ndash;&gt;-->
+      <!--            <p class="text-secondary pb-2">文字-文章</p>-->
+      <!--            &lt;!&ndash;   页眉&ndash;&gt;-->
+      <!--            <div class="flex justify-between">-->
+      <!--              &lt;!&ndash;   评论、喜欢&ndash;&gt;-->
+      <!--              <div class="flex">-->
+      <!--                &lt;!&ndash;   喜欢&ndash;&gt;-->
+      <!--                <div class="flex items-center pr-2 cursor-pointer">-->
+      <!--                  <svg-icon icon-class="like" class="w-4 h-4 mr-1" />-->
+      <!--                  <div class="">100+</div>-->
+      <!--                </div>-->
+      <!--                &lt;!&ndash;  评论&ndash;&gt;-->
+      <!--                <div class="flex items-center cursor-pointer">-->
+      <!--                  <svg-icon icon-class="comment" class="w-4 h-4 mr-1" />-->
+      <!--                  <div class="">100+</div>-->
+      <!--                </div>-->
+      <!--              </div>-->
+      <!--              &lt;!&ndash;   时间&ndash;&gt;-->
+      <!--              <div class="text-secondary pr-4">21-03-16 22:23</div>-->
+      <!--            </div>-->
+      <!--          </div>-->
+      <!--        </div>-->
+      <!--      </div>-->
     </div>
   </div>
 </template>
@@ -114,6 +153,7 @@ export default Vue.extend({
     return {
       tab: 0, // 10-首页推荐，11-个性推荐，12-最新发布
       rankTab: 0,
+      ranks: ['文字榜单', '艺术榜单'],
       images: [
         'https://image.fendy5.cn/s/PyFHOprAVGQJOD06.png',
         'https://image.fendy5.cn/s/u7CG5B8qQUIoY2Wf.png'
@@ -134,16 +174,14 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-.star-recommended {
-  .item {
-    .img-bg {
-      width: 274px;
-      height: 194px;
-    }
-    .img-bg2 {
-      width: 353px;
-      height: 337px;
-    }
+.item {
+  .img-bg {
+    width: 274px;
+    height: 194px;
+  }
+  .img-bg2 {
+    width: 353px;
+    height: 337px;
   }
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="grid grid-cols-4 pb-6">
     <div v-for="i in artList" :key="i.id" class="art">
       <div :style="{'background':`url(${i.bg})`}" class="cover rounded-2xl px-4 pt-4">
         <div class="flex justify-between">
@@ -55,11 +55,9 @@ export default {
 
 <style lang="scss" scoped>
 .art {
-  width: 274px;
-  height: 234px;
 }
 .cover {
-  width: 100%;
-  height: 100%;
+  width: 274px;
+  height: 234px;
 }
 </style>

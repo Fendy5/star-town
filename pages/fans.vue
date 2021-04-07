@@ -1,9 +1,6 @@
 <template>
   <div>
-    <div class="bg-banner h-64 w-full flex justify-center items-center">
-      <input class="search rounded-full px-7  focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="迪迦和哥尔赞合集" type="text">
-      <svg-icon icon-class="search" class="search-icon relative right-12 cursor-pointer" />
-    </div>
+    <banner :title="bannerTitle" bg="https://image.fendy5.cn/s/ObrG13kHn8RBIFjd.png" />
     <div class="fd-container">
       <!--      文字星球-->
       <div class="tab-panel">
@@ -28,6 +25,7 @@
 </template>
 
 <script>
+import Banner from '@/components/Banner'
 import tab from '@/components/Tab'
 import textList from '@/components/TextList'
 import ArtList from '@/components/ArtList'
@@ -36,15 +34,38 @@ import fdButton from '@/components/FdButton'
 export default {
   components: {
     tab,
+    Banner,
     ArtList,
     fdButton,
     textList
   },
   data () {
     return {
+      bannerTitle: {
+        en: 'Fans community',
+        zh: '粉丝社区'
+      },
       artList: [
         {
           id: 1,
+          nickname: '昵称',
+          avatar: 'https://image.fendy5.cn/s/u7CG5B8qQUIoY2Wf.png',
+          bg: 'https://image.fendy5.cn/s/7UniAOwgZLMdY0kj.png'
+        },
+        {
+          id: 2,
+          nickname: '昵称',
+          avatar: 'https://image.fendy5.cn/s/u7CG5B8qQUIoY2Wf.png',
+          bg: 'https://image.fendy5.cn/s/7UniAOwgZLMdY0kj.png'
+        },
+        {
+          id: 3,
+          nickname: '昵称',
+          avatar: 'https://image.fendy5.cn/s/u7CG5B8qQUIoY2Wf.png',
+          bg: 'https://image.fendy5.cn/s/7UniAOwgZLMdY0kj.png'
+        },
+        {
+          id: 4,
           nickname: '昵称',
           avatar: 'https://image.fendy5.cn/s/u7CG5B8qQUIoY2Wf.png',
           bg: 'https://image.fendy5.cn/s/7UniAOwgZLMdY0kj.png'
@@ -80,17 +101,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.bg-banner {
-  background: url('https://image.fendy5.cn/s/ObrG13kHn8RBIFjd.png') 50% 50%;
-  .search {
-    width: 687px;
-    height: 52px;
-  }
-  .search-icon {
-    width: 24px;
-    height: 20px;
-  }
-}
+
 .tab-panel {
   @apply p-6 bg-white rounded-2xl relative bottom-6 mb-5
 }
