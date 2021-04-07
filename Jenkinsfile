@@ -7,7 +7,8 @@ pipeline {
           sh '''node -v
 yarn install
 yarn generate
-mv dist /www/wwwroot/star-town.fendy5.cn'''
+rm -rf /www/wwwroot/star-town.fendy5.cn/dist
+mv ./dist /www/wwwroot/star-town.fendy5.cn'''
         }
 
       }
