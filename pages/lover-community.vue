@@ -29,6 +29,21 @@ export default {
           id: 1,
           fans: 100,
           bg: 'https://image.fendy5.cn/s/S6lUbNvWzqmitfQ7.png'
+        },
+        {
+          id: 2,
+          fans: 100,
+          bg: 'https://image.fendy5.cn/s/S6lUbNvWzqmitfQ7.png'
+        },
+        {
+          id: 3,
+          fans: 100,
+          bg: 'https://image.fendy5.cn/s/S6lUbNvWzqmitfQ7.png'
+        },
+        {
+          id: 4,
+          fans: 100,
+          bg: 'https://image.fendy5.cn/s/S6lUbNvWzqmitfQ7.png'
         }
       ],
       cpRank: ['热门CP', 'CP广场'],

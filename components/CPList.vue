@@ -1,8 +1,10 @@
 <template>
-  <div class="cp-list">
-    <div v-for="i in cpList" :key="i.id">
-      <div :style="{background:`url(${i.bg}) no-repeat 50% 50%`}" class="cover" />
-      <div class="pt-3 pb-4 flex justify-between px-4 bg-white">
+  <div class="my-4 grid grid-cols-4">
+    <div v-for="(i,index) in cpList" :key="i.id" class="cp-list-item">
+      <div :style="{background:`url(${i.bg}) no-repeat 50% 50%`}" class="cover">
+        <div class="pl-6 pt-4 text-white text-3xl">No.{{ index+1 }}</div>
+      </div>
+      <div class="pt-3 pb-4 flex justify-between px-4 bg-white rounded">
         <div class="">
           <div class="flex items-center">
             <div class="flex pr-2">
@@ -38,7 +40,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.cp-list {
+.cp-list-item {
   width: 274px;
   .cover {
     width: 100%;
