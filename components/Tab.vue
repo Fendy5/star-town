@@ -1,6 +1,12 @@
 <template>
   <div>
-    <div class="text-3xl">{{ title }}</div>
+    <div class="flex justify-between">
+      <div class="text-3xl">{{ title }}</div>
+      <fd-button plain>
+        <span>按热度</span>
+        <svg-icon icon-class="transfer" class="w-4 h-4 mr-1" />
+      </fd-button>
+    </div>
     <div class="text-2xl w-1/2 flex justify-around mx-auto mb-7">
       <div v-for="(i,index) in tabs" :key="index" :class="{'tab-active':activeIndex===index}" class="cursor-pointer" @click="changeTab(index)">{{ i }}</div>
     </div>
@@ -9,8 +15,16 @@
 </template>
 
 <script>
+import FdButton from '~/components/FdButton'
 export default {
+  components: {
+    FdButton
+  },
   props: {
+    showHot: {
+      type: Boolean,
+      default: true
+    },
     title: {
       type: String,
       default: ''
