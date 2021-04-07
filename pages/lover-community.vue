@@ -4,7 +4,7 @@
     <!--    cp榜单-->
     <div class="fd-container">
       <tab title="CP排行榜" :tabs="cpRank">
-        123
+        567
       </tab>
     </div>
   </div>
