@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button v-if="size==='small'" :class="{'bt-primary':!plain && !none}" class="fd-button py-1 px-4" @click="handleClick">
+    <button v-if="size==='small'" :class="{'bt-primary':!plain && !none,'plain':plain}" class="fd-button py-1 px-4 flex items-center" @click="handleClick">
       <slot />
     </button>
     <button v-else-if="size==='medium'" :class="{'bt-primary':!plain && !none,'plain':plain}" class="fd-button px-12 py-4" @click="handleClick">
