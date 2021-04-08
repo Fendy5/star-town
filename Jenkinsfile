@@ -4,8 +4,7 @@ pipeline {
     stage('Build') {
       steps {
         nodejs(nodeJSInstallationName: 'NodeJS 14.4.0', configId: '813e0106-1f9e-4e72-a283-4bb717eec4d2') {
-          sh '''yarn config set sass_binary_site https://npm.taobao.org/mirrors/node-sass/
-yarn install'''
+          sh 'yarn install'
           sh 'yarn generate'
         }
 
