@@ -15,6 +15,18 @@
         <div class="pl-8">
           <div class="text-xl font-medium pb-4">{{ i.title }}</div>
           <p>{{ i.desc }}</p>
+          <div class="flex justify-end">
+            <!--   喜欢-->
+            <div class="flex items-center pr-2 cursor-pointer">
+              <svg-icon icon-class="like" class="w-4 h-4 mr-1" />
+              <div class="">100+</div>
+            </div>
+            <!--  评论-->
+            <div class="flex items-center cursor-pointer">
+              <svg-icon icon-class="comment" class="w-4 h-4 mr-1" />
+              <div class="">100+</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

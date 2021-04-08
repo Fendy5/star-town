@@ -1,5 +1,5 @@
 <template>
-  <div class="my-4 grid grid-cols-4">
+  <div class="my-4 grid grid-cols-4 place-items-center">
     <div v-for="(i,index) in cpList" :key="i.id" class="cp-list-item">
       <div :style="{background:`url(${i.bg}) no-repeat 50% 50%`}" class="cover">
         <div class="pl-6 pt-4 text-white text-3xl">No.{{ index+1 }}</div>

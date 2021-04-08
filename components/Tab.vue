@@ -2,7 +2,7 @@
   <div>
     <div class="flex justify-between">
       <div class="text-3xl">{{ title }}</div>
-      <fd-button plain>
+      <fd-button v-if="showHot" plain>
         <span>按热度</span>
         <svg-icon icon-class="transfer" class="w-4 h-4 mr-1" />
       </fd-button>
@@ -23,7 +23,7 @@ export default {
   props: {
     showHot: {
       type: Boolean,
-      default: true
+      default: false
     },
     title: {
       type: String,

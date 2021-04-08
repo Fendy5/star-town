@@ -4,7 +4,7 @@
     <!--    cp榜单-->
     <div class="fd-container">
       <div class="mt-6">
-        <tab title="CP排行榜" :tabs="cpRank">
+        <tab show-hot title="CP排行榜" :tabs="cpRank">
           <c-p-list :cp-list="cpList" />
         </tab>
       </div>
