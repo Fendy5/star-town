@@ -1,8 +1,5 @@
 pipeline {
   agent any
-  options {
-      skipDefaultCheckout(true)
-  }
   stages {
     stage('Git Pull') {
       steps {
@@ -27,5 +24,11 @@ pipeline {
       }
     }
 
+  }
+  environment {
+    itemName = 'star-town'
+  }
+  options {
+    skipDefaultCheckout(true)
   }
 }
