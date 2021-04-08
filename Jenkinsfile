@@ -1,12 +1,9 @@
 pipeline {
   agent any
-  parameters {
-    string(name: 'ItemName', defaultValue: 'star-town', description: 'How should I greet the world?')
-  }
   stages {
     stage('Git Pull') {
       steps {
-        git(credentialsId: 'github', branch: 'master', url: 'https://github.com.cnpmjs.org/Fendy5/${params.ItemName}.git')
+        git(credentialsId: 'github', branch: 'master', url: "https://github.com.cnpmjs.org/Fendy5/${env.ItemName}.git")
       }
     }
 
@@ -16,17 +13,19 @@ pipeline {
           sh 'yarn install'
           sh 'yarn generate'
         }
-
       }
     }
 
     stage('Deploy') {
       steps {
-        sh 'rm -rf /www/wwwroot/${params.ItemName}.fendy5.cn/dist'
-        sh 'mv ./dist /www/wwwroot/${params.ItemName}.fendy5.cn'
+        sh 'rm -rf /www/wwwroot/${env.ItemName}.fendy5.cn/dist'
+        sh 'mv ./dist /www/wwwroot/${env.ItemName}.fendy5.cn'
       }
     }
 
+  }
+  environment {
+    ItemName = 'star-town'
   }
   options {
     skipDefaultCheckout(true)
