@@ -1,6 +1,15 @@
 pipeline {
   agent any
+  options {
+      skipDefaultCheckout(true)
+  }
   stages {
+    stage('Git Pull') {
+      steps {
+        git(credentialsId: 'github', branch: 'master', url: 'https://github.com.cnpmjs.org/Fendy5/star-town.git')
+      }
+    }
+
     stage('Build') {
       steps {
         nodejs(nodeJSInstallationName: 'NodeJS 14.4.0', configId: '813e0106-1f9e-4e72-a283-4bb717eec4d2') {
