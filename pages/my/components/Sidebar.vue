@@ -1,0 +1,40 @@
+<template>
+  <div class="sidebar bg-white rounded">
+    <div class="text-xl text-center pt-6 pb-5">我的星球足迹</div>
+    <div :class="{'bg-primary':tab===0}" class="py-5 pl-6 pr-7 cursor-pointer fx-between" @click="changeTab(0)">
+      <div class="flex items-center justify-between">
+        <svg-icon class="w-3 h-4 mr-3" icon-class="folder" /> <span>我点赞的</span>
+      </div>
+      <div class="">20</div>
+    </div>
+    <div :class="{'bg-primary':tab===1}" class="py-5 pl-6 cursor-pointer flex items-center" @click="changeTab(1)">
+      <svg-icon class="w-3 h-4 mr-3" icon-class="folder" /> <span>我评论的</span>
+    </div>
+    <div :class="{'bg-primary':tab===2}" class="py-5 pl-6 cursor-pointer flex items-center" @click="changeTab(2)">
+      <svg-icon class="w-3 h-4 mr-3" icon-class="folder" /> <span>我创作的</span>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      tab: 0
+    }
+  },
+  methods: {
+    changeTab (index) {
+      this.tab = index
+      this.$emit('changeTab', index)
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.sidebar {
+  width: 273px;
+  height: 274px;
+}
+</style>

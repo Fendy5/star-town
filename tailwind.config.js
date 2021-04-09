@@ -12,9 +12,6 @@ module.exports = {
   },
   theme: {
     extend: {
-      backgroundImage: _ => ({
-        primary: 'linear-gradient(90deg, #833AB4 0%, #E94057 50.52%, #F27121 100%)'
-      }),
       minWidth: _ => ({
         1280: '1280px'
       }),
