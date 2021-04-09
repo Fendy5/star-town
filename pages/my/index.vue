@@ -28,7 +28,9 @@
             <svg-icon icon-class="transfer" class="w-4 h-4 mr-1" />
           </fd-button>
         </div>
-        <like-list :like-list="likeList" />
+        <like-list v-if="tab===0" :like-list="likeList" />
+        <comment-list v-else-if="tab===1" />
+        <my-create v-else />
       </div>
     </div>
   </div>
@@ -37,9 +39,13 @@
 <script>
 import Sidebar from '@/pages/my/components/Sidebar'
 import LikeList from '@/pages/my/components/LikeList'
+import CommentList from '@/pages/my/components/CommentList'
+import MyCreate from '@/pages/my/components/MyCreate'
 export default {
   components: {
     LikeList,
+    MyCreate,
+    CommentList,
     Sidebar
   },
   data () {
@@ -76,6 +82,7 @@ export default {
   methods: {
     changeTab (val) {
       console.log(val)
+      this.tab = val
     }
   }
 }
