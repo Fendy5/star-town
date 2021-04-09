@@ -7,9 +7,9 @@
       </router-link>
       <!--    导航栏-->
       <div class="flex items-center ab-center">
-        <router-link to="fans" class="px-10">粉丝社区</router-link>
-        <router-link to="lover-community" class="px-10">情侣社区</router-link>
-        <router-link to="create" class="px-10">我要创作</router-link>
+        <router-link to="/fans" class="px-10">粉丝社区</router-link>
+        <router-link to="/lover-community" class="px-10">情侣社区</router-link>
+        <router-link to="/create" class="px-10">我要创作</router-link>
       </div>
       <!--    个人信息-->
       <div class="flex justify-between items-center float-right relative top-3">
