@@ -29,8 +29,8 @@ export default {
   },
   props: {
     cpList: {
-      type: Object,
-      default: () => {}
+      type: Array,
+      default: () => []
     }
   },
   data () {

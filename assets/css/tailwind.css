@@ -38,4 +38,9 @@
     .fx-items-center {
         @apply flex items-center
     }
+    .ellipsis {
+        text-overflow:ellipsis;
+        overflow:hidden;
+        white-space:nowrap
+    }
 }

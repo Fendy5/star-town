@@ -1,15 +1,15 @@
 <template>
-  <header class="h-12 fixed w-full shadow-md bg-white z-10">
+  <header class="h-14 fixed w-full shadow-md bg-white z-10">
     <div class="h-full fd-container relative">
       <!--    logo-->
       <router-link class="float-left" to="/">
-        <svg-icon class="w-24 h-12 cursor-pointer" icon-class="logo" />
+        <svg-icon class="h-14 w-28 cursor-pointer" icon-class="logo" />
       </router-link>
       <!--    导航栏-->
       <div class="flex items-center ab-center">
-        <router-link to="/fans" class="px-10">粉丝社区</router-link>
-        <router-link to="/lover-community" class="px-10">情侣社区</router-link>
-        <router-link to="/create" class="px-10">我要创作</router-link>
+        <router-link :class="{'header-active':this.$route.name==='fans'}" to="/fans" class="px-10 relative">粉丝社区</router-link>
+        <router-link :class="{'header-active':this.$route.name==='lover-community'}" to="/lover-community" class="px-10 relative">情侣社区</router-link>
+        <router-link :class="{'header-active':this.$route.name==='create'}" to="/create" class="px-10 relative">我要创作</router-link>
       </div>
       <!--    个人信息-->
       <div class="flex justify-between items-center float-right relative top-3">
@@ -76,6 +76,10 @@ export default {
   //     console.log(params)
   //   })
   // },
+  created () {
+    console.log(this.$route.name)
+  },
+
   methods: {
     closeLogin () {
       const mask = document.getElementById('mask')
@@ -118,5 +122,17 @@ export default {
   opacity: .5;
   display: none;
   background: #000;
+}
+.header-active {
+  color: #6d00ff;
+  &::before {
+    position: absolute;
+    content: "";
+    bottom: -8px;
+    width: 30px;
+    background: #6d00ff;
+    height: 2px;
+    left: 52px;
+  }
 }
 </style>

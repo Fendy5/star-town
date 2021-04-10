@@ -21,16 +21,50 @@
       <sidebar @changeTab="changeTab" />
       <!--      右边-->
       <div class="my-contents bg-white rounded px-8 py-6">
-        <div class="fx-content-between pb-6">
+        <div v-if="tab===0" class="fx-content-between pb-6">
           <div class="text-xl">我点赞的</div>
           <fd-button plain>
             <span>按热度</span>
             <svg-icon icon-class="transfer" class="w-4 h-4 mr-1" />
           </fd-button>
         </div>
+        <div v-else-if="tab===1" class="fx-content-between pb-6">
+          <div class="text-xl">我评论的</div>
+          <fd-button plain>
+            <span>按热度</span>
+            <svg-icon icon-class="transfer" class="w-4 h-4 mr-1" />
+          </fd-button>
+        </div>
+        <div v-else class="fx-content-between pb-6">
+          <div class="fx-items-center">
+            <div class="text-xl">我创作的</div>
+            <div class="pl-8 flex">
+              <div class="flex divide-x divide-gray-200 pr-4">
+                <div class="pr-1">投稿</div>
+                <div class="pl-1">16</div>
+              </div>
+              <div class="flex divide-x divide-gray-200 pr-4">
+                <div class="pr-1">获赞</div>
+                <div class="pl-1">1000</div>
+              </div>
+              <div class="flex divide-x divide-gray-200 pr-4">
+                <div class="pr-1">被评论</div>
+                <div class="pl-1">1000</div>
+              </div>
+              <div class="flex divide-x divide-gray-200 pr-4">
+                <div class="pr-1">被收藏</div>
+                <div class="pl-1">1000</div>
+              </div>
+            </div>
+          </div>
+          <fd-button plain>
+            <span>按热度</span>
+            <svg-icon icon-class="transfer" class="w-4 h-4 mr-1" />
+          </fd-button>
+        </div>
         <like-list v-if="tab===0" :like-list="likeList" />
-        <comment-list v-else-if="tab===1" />
-        <my-create v-else />
+        <comment-list v-else-if="tab===1" :comment-list="commentList" />
+        <my-create v-else :like-list="likeList" />
       </div>
     </div>
   </div>
@@ -51,6 +85,32 @@ export default {
   data () {
     return {
       tab: 0,
+      commentList: [
+        {
+          id: 1,
+          title: 'I love you',
+          nickname: '昵称',
+          avatar: 'https://image.fendy5.cn/s/u7CG5B8qQUIoY2Wf.png',
+          create_time: '2021-03-12 09:11:09',
+          content: '评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容'
+        },
+        {
+          id: 2,
+          title: 'I',
+          nickname: '昵称',
+          avatar: 'https://image.fendy5.cn/s/u7CG5B8qQUIoY2Wf.png',
+          create_time: '2021-03-12 09:11:09',
+          content: '评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容'
+        },
+        {
+          id: 3,
+          title: 'You',
+          nickname: '昵称',
+          avatar: 'https://image.fendy5.cn/s/u7CG5B8qQUIoY2Wf.png',
+          create_time: '2021-03-12 09:11:09',
+          content: '评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容'
+        }
+      ],
       likeList: [
         {
           id: 1,
