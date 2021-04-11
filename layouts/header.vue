@@ -76,9 +76,6 @@ export default {
   //     console.log(params)
   //   })
   // },
-  created () {
-    console.log(this.$route.name)
-  },
 
   methods: {
     closeLogin () {
