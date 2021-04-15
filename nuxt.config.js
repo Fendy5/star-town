@@ -20,6 +20,16 @@ export default {
     host: '0.0.0.0' // default: localhost
   },
 
+  proxy: {
+    '/dev-api': {
+      target: 'http://127.0.0.1:7025',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/dev-api': ''
+      }
+    }
+  },
+
   loading: { color: '#7961bd' },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
@@ -51,7 +61,11 @@ export default {
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {},
+  axios: {
+    proxy: true,
+    prefix: '/dev-api',
+    credentials: true
+  },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {

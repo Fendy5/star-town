@@ -47,27 +47,38 @@
         <div :class="{'login-active':loginActive===1}" class="text-2xl cursor-pointer" @click="changeLogin(1)">注册</div>
       </div>
       <div class="mt-9">
-        <input type="text" class="w-full py-3 px-9 rounded-3xl text-xl border-2 border-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="手机号码">
+        <input v-model="form.nickname" type="text" class="fd-input" placeholder="昵称">
       </div>
       <div class="mt-9">
-        <input type="password" class="w-full py-3 px-9 rounded-3xl text-xl border-2 border-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="密码">
+        <input v-model="form.phone" type="number" class="fd-input" placeholder="手机号码">
       </div>
       <div class="mt-9">
-        <input type="password" class="w-full py-3 px-9 rounded-3xl text-xl border-2 border-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="密码">
+        <input v-model="form.password" type="password" class="fd-input" placeholder="密码">
+      </div>
+      <div class="mt-9">
+        <input v-model="re_password" type="password" class="fd-input" placeholder="确认密码">
       </div>
       <div class="flex justify-end mt-4">
         <router-link to="/forget" class="text-sm">忘记密码？</router-link>
       </div>
-      <button class="bg-primary text-white rounded-full h-16 text-xl mt-12 w-full focus:outline-none">立即注册</button>
+      <button class="bg-primary text-white rounded-full h-16 text-xl mt-12 w-full focus:outline-none" @click="register">立即注册</button>
     </div>
     <div id="mask" @click="closeLogin" />
   </header>
 </template>
 
 <script>
+import { registerApi } from '~/api/user'
+
 export default {
   data () {
     return {
+      form: {
+        nickname: 'Fendy',
+        phone: '15625701754',
+        password: '123456'
+      },
+      re_password: '123456',
       loginActive: 0 // 0-登录，1-注册
     }
   },
@@ -78,10 +89,18 @@ export default {
   // },
 
   methods: {
+    register () {
+      registerApi(this.form).then((val) => {
+        this.$message.success(val.data.message)
+        this.closeLogin()
+      })
+    },
     closeLogin () {
       const mask = document.getElementById('mask')
       mask.style.display = 'none'
       this.$refs.login.style.display = 'none'
+      this.form = {}
+      this.re_password = ''
     },
     showLogin () {
       const mask = document.getElementById('mask')
@@ -96,6 +115,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.fd-input {
+  @apply w-full py-3 px-9 rounded-3xl text-xl border-2 border-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500
+}
 .login {
   width: 590px;
   z-index: 201;
