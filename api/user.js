@@ -15,3 +15,11 @@ export function registerApi (data) {
     data
   })
 }
+
+export function getUserInfoApi (params) {
+  return request({
+    url: '/api/v1/user-info',
+    method: 'get',
+    params
+  })
+}
