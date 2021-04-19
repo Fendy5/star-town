@@ -71,6 +71,12 @@ export default {
     credentials: true
   },
 
+  mode: 'universal',
+  env: {
+    NODE_ENV: process.env.NODE_ENV,
+    BASE_URL: process.env.BASE_URL
+  },
+
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
     // analyze: true,
