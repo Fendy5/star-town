@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="banner">
-      <img class="avatar rounded-full relative" src="https://image.fendy5.cn/s/u7CG5B8qQUIoY2Wf.png" alt="">
+      <img class="avatar rounded-full relative" :src="user.avatar" alt="">
     </div>
     <!--    头像昵称-->
     <div class="relative text-center pt-24">
-      <p>你可爱的迪迦奥特曼 <router-link to="" class="pl-6 text-purple-500">申请入驻</router-link> </p>
+      <p>{{ user.nickname }} <router-link to="" class="pl-6 text-purple-500">申请入驻</router-link> </p>
       <div class="flex pt-4 justify-center">
         <div class="flex divide-x divide-gray-300">
           <p class="pr-2">关注</p>
@@ -75,7 +75,12 @@ import Sidebar from '@/pages/my/components/Sidebar'
 import LikeList from '@/pages/my/components/LikeList'
 import CommentList from '@/pages/my/components/CommentList'
 import MyCreate from '@/pages/my/components/MyCreate'
+import { mapState } from 'vuex'
 export default {
+  middleware: 'auth',
+  computed: mapState({
+    user: state => state.userinfo
+  }),
   components: {
     LikeList,
     MyCreate,

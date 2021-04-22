@@ -1,149 +1,154 @@
 <template>
   <div class="fd-container bg-white rounded">
-    <div class="mt-16 text-center pt-8">
-      <input class="w-72 py-3 px-5 border-2 border-purple-400 rounded" placeholder="请输入标题" type="text">
-    </div>
-    <div class="mt-8 text-center">
-      <input class="w-1/2 py-3 px-5 border-2 border-purple-400 rounded" placeholder="请输入关键词(方便用户搜索)" type="text">
-    </div>
-    <div class="mt-8 mb-8 pb-16">
-      <div class="editor">
-        <editor-menu-bar v-slot="{ commands, isActive }" :editor="editor">
-          <div class="menubar">
-            <button
-              class="menubar__button"
-              :class="{ 'is-active': isActive.bold() }"
-              @click="commands.bold"
-            >
-              <svg-icon icon-class="bold" />
-            </button>
-            <button
-              class="menubar__button"
-              :class="{ 'is-active': isActive.italic() }"
-              @click="commands.italic"
-            >
-              <svg-icon icon-class="italic" />
-            </button>
+    <div class="editor-container">
+      <div class="mt-16 text-center pt-8">
+        <input class="w-72 py-3 px-5 border-2 border-purple-400 rounded" placeholder="请输入标题" type="text">
+      </div>
+      <div class="mt-8 text-center">
+        <input class="w-1/2 py-3 px-5 border-2 border-purple-400 rounded" placeholder="请输入关键词(方便用户搜索)" type="text">
+      </div>
+      <div class="mt-8 mb-8 pb-16">
+        <div class="editor">
+          <editor-menu-bar v-slot="{ commands, isActive }" :editor="editor">
+            <div class="menubar">
+              <button
+                class="menubar__button"
+                :class="{ 'is-active': isActive.bold() }"
+                @click="commands.bold"
+              >
+                <svg-icon icon-class="bold" />
+              </button>
+              <button
+                class="menubar__button"
+                :class="{ 'is-active': isActive.italic() }"
+                @click="commands.italic"
+              >
+                <svg-icon icon-class="italic" />
+              </button>
 
-            <button
-              class="menubar__button"
-              :class="{ 'is-active': isActive.strike() }"
-              @click="commands.strike"
-            >
-              <svg-icon icon-class="strike" />
-            </button>
+              <button
+                class="menubar__button"
+                :class="{ 'is-active': isActive.strike() }"
+                @click="commands.strike"
+              >
+                <svg-icon icon-class="strike" />
+              </button>
 
-            <button
-              class="menubar__button"
-              :class="{ 'is-active': isActive.underline() }"
-              @click="commands.underline"
-            >
-              <svg-icon icon-class="underline" />
-            </button>
+              <button
+                class="menubar__button"
+                :class="{ 'is-active': isActive.underline() }"
+                @click="commands.underline"
+              >
+                <svg-icon icon-class="underline" />
+              </button>
 
-            <button
-              class="menubar__button"
-              :class="{ 'is-active': isActive.code() }"
-              @click="commands.code"
-            >
-              <svg-icon icon-class="code" />
-            </button>
+              <button
+                class="menubar__button"
+                :class="{ 'is-active': isActive.code() }"
+                @click="commands.code"
+              >
+                <svg-icon icon-class="code" />
+              </button>
 
-            <button
-              class="menubar__button"
-              @click="showImagePrompt(commands.image)"
-            >
-              <svg-icon icon-class="image" />
-            </button>
+              <button
+                class="menubar__button"
+                @click="showImagePrompt(commands.image)"
+              >
+                <svg-icon icon-class="image" />
+              </button>
 
-            <button
-              class="menubar__button"
-              :class="{ 'is-active': isActive.paragraph() }"
-              @click="commands.paragraph"
-            >
-              <svg-icon icon-class="paragraph" />
-            </button>
+              <button
+                class="menubar__button"
+                :class="{ 'is-active': isActive.paragraph() }"
+                @click="commands.paragraph"
+              >
+                <svg-icon icon-class="paragraph" />
+              </button>
 
-            <button
-              class="menubar__button"
-              :class="{ 'is-active': isActive.heading({ level: 1 }) }"
-              @click="commands.heading({ level: 1 })"
-            >
-              H1
-            </button>
+              <button
+                class="menubar__button"
+                :class="{ 'is-active': isActive.heading({ level: 1 }) }"
+                @click="commands.heading({ level: 1 })"
+              >
+                H1
+              </button>
 
-            <button
-              class="menubar__button"
-              :class="{ 'is-active': isActive.heading({ level: 2 }) }"
-              @click="commands.heading({ level: 2 })"
-            >
-              H2
-            </button>
+              <button
+                class="menubar__button"
+                :class="{ 'is-active': isActive.heading({ level: 2 }) }"
+                @click="commands.heading({ level: 2 })"
+              >
+                H2
+              </button>
 
-            <button
-              class="menubar__button"
-              :class="{ 'is-active': isActive.heading({ level: 3 }) }"
-              @click="commands.heading({ level: 3 })"
-            >
-              H3
-            </button>
+              <button
+                class="menubar__button"
+                :class="{ 'is-active': isActive.heading({ level: 3 }) }"
+                @click="commands.heading({ level: 3 })"
+              >
+                H3
+              </button>
 
-            <button
-              class="menubar__button"
-              :class="{ 'is-active': isActive.bullet_list() }"
-              @click="commands.bullet_list"
-            >
-              <svg-icon icon-class="ul" />
-            </button>
+              <button
+                class="menubar__button"
+                :class="{ 'is-active': isActive.bullet_list() }"
+                @click="commands.bullet_list"
+              >
+                <svg-icon icon-class="ul" />
+              </button>
 
-            <button
-              class="menubar__button"
-              :class="{ 'is-active': isActive.ordered_list() }"
-              @click="commands.ordered_list"
-            >
-              <svg-icon icon-class="ol" />
-            </button>
+              <button
+                class="menubar__button"
+                :class="{ 'is-active': isActive.ordered_list() }"
+                @click="commands.ordered_list"
+              >
+                <svg-icon icon-class="ol" />
+              </button>
 
-            <button
-              class="menubar__button"
-              :class="{ 'is-active': isActive.blockquote() }"
-              @click="commands.blockquote"
-            >
-              <svg-icon icon-class="quote" />
-            </button>
+              <button
+                class="menubar__button"
+                :class="{ 'is-active': isActive.blockquote() }"
+                @click="commands.blockquote"
+              >
+                <svg-icon icon-class="quote" />
+              </button>
 
-            <button
-              class="menubar__button"
-              :class="{ 'is-active': isActive.code_block() }"
-              @click="commands.code_block"
-            >
-              <svg-icon icon-class="code" />
-            </button>
+              <button
+                class="menubar__button"
+                :class="{ 'is-active': isActive.code_block() }"
+                @click="commands.code_block"
+              >
+                <svg-icon icon-class="code" />
+              </button>
 
-            <button
-              class="menubar__button"
-              @click="commands.horizontal_rule"
-            >
-              <svg-icon icon-class="hr" />
-            </button>
+              <button
+                class="menubar__button"
+                @click="commands.horizontal_rule"
+              >
+                <svg-icon icon-class="hr" />
+              </button>
 
-            <button
-              class="menubar__button"
-              @click="commands.undo"
-            >
-              <svg-icon icon-class="undo" />
-            </button>
+              <button
+                class="menubar__button"
+                @click="commands.undo"
+              >
+                <svg-icon icon-class="undo" />
+              </button>
 
-            <button
-              class="menubar__button"
-              @click="commands.redo"
-            >
-              <svg-icon icon-class="redo" />
-            </button>
-          </div>
-        </editor-menu-bar>
+              <button
+                class="menubar__button"
+                @click="commands.redo"
+              >
+                <svg-icon icon-class="redo" />
+              </button>
+            </div>
+          </editor-menu-bar>
 
-        <editor-content class="editor__content" :editor="editor" />
+          <editor-content class="editor__content" :editor="editor" />
+        </div>
+        <div class="text-center">
+          <fd-button plain size="medium">发 布</fd-button>
+        </div>
       </div>
     </div>
   </div>
@@ -252,6 +257,11 @@ export default {
   border: 2px solid #a68bfa;
   padding: 24px;
 }
+.editor-container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 45rem;
+}
 .svg-icon {
   width: .8rem;
   height: .8rem;
@@ -259,5 +269,4 @@ export default {
 .menubar {
   border-bottom: 1px solid #a68bfa;
 }
-
 </style>

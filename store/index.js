@@ -1,3 +1,4 @@
+import { Message } from 'element-ui'
 import { getToken, removeToken, setToken } from '~/utils/cookie'
 import { getUserInfoApi } from '~/api/user'
 
@@ -8,6 +9,7 @@ export const state = () => ({
     phone: '',
     avatar: ''
   },
+  dialog: 'none',
   token: getToken()
 })
 
@@ -22,6 +24,10 @@ export const mutations = {
 
   REMOVE_TOKEN: (state) => {
     state.token = ''
+  },
+
+  SET_DIALOG: (state, value) => {
+    state.dialog = value
   }
 }
 
@@ -38,12 +44,16 @@ export const actions = {
   getInfo ({ commit }) {
     return new Promise((resolve, reject) => {
       getUserInfoApi().then((response) => {
-        const user = response.data.user
-        if (!user) {
-          // reject('登录失败，请重新登录')
+        if (response.code === 1) {
+          Message.error('登录状态已失效，请重新登录')
+          commit('REMOVE_TOKEN')
+          removeToken()
+        } else {
+          const user = response.data.user
+          commit('SET_USER', user)
+          commit('SET_TOKEN', getToken())
+          resolve(user)
         }
-        commit('SET_USER', user)
-        resolve(user)
       }).catch((error) => {
         reject(error)
       })

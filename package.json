@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development BASE_URL=/dev-api nuxt",
+    "dev": "cross-env BASE_URL=/dev-api nuxt",
     "build": "cross-env NODE_ENV=production nuxt build",
     "start": "cross-env NODE_ENV=production nuxt start",
-    "generate": "cross-env NODE_ENV=production BASE_URL=/ nuxt generate",
+    "generate": "cross-env BASE_URL=/ nuxt generate",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint": "yarn lint:js"
   },

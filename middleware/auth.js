@@ -1,6 +1,7 @@
-export default function (context) {
-  // context.userAgent = process.server
-  //   ? context.req.headers['user-agent']
-  //   : navigator.userAgent
-  // console.log(context)
+export default function ({ store }) {
+  // console.log('commit')
+  console.log(store.state)
+  if (!store.state.token) {
+    store.commit('SET_DIALOG', 'block')
+  }
 }

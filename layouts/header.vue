@@ -30,7 +30,7 @@
         </div>
       </div>
     </div>
-    <div v-if="loginActive===0" ref="login" class="login rounded-2xl px-11 pb-14">
+    <div v-if="loginActive===0" :style="{display:dialog}" class="login rounded-2xl px-11 pb-14">
       <!--      登录注册切换的Tab-->
       <div class="mt-8 flex justify-around">
         <div :class="{'login-active':loginActive===0}" class="text-2xl cursor-pointer" @click="changeLogin(0)">登录</div>
@@ -40,14 +40,14 @@
         <input v-model="form.phone" type="text" class="fd-input" placeholder="手机号码">
       </div>
       <div class="mt-9">
-        <input v-model="form.password" type="text" class="fd-input" placeholder="密码">
+        <input v-model="form.password" type="password" class="fd-input" placeholder="密码">
       </div>
       <div class="flex justify-end mt-4">
         <router-link to="/forget" class="text-sm">忘记密码？</router-link>
       </div>
       <button class="bg-primary text-white rounded-full h-16 text-xl mt-12 w-full focus:outline-none" @click="login">立即登录</button>
     </div>
-    <div v-else ref="login" class="login rounded-2xl px-11 pb-14">
+    <div v-else :style="{display:dialog}" class="login rounded-2xl px-11 pb-14">
       <!--      登录注册切换的Tab-->
       <div class="mt-8 flex justify-around">
         <div :class="{'login-active':loginActive===0}" class="text-2xl cursor-pointer" @click="changeLogin(0)">登录</div>
@@ -70,7 +70,7 @@
       </div>
       <button class="bg-primary text-white rounded-full h-16 text-xl mt-12 w-full focus:outline-none" @click="register">立即注册</button>
     </div>
-    <div id="mask" @click="closeLogin" />
+    <div id="mask" :style="{display:dialog}" @click="closeLogin" />
   </header>
 </template>
 
@@ -92,6 +92,7 @@ export default {
     }
   },
   computed: mapState({
+    dialog: state => state.dialog,
     user: state => state.userinfo
   }),
   created () {
@@ -100,9 +101,17 @@ export default {
     }
   },
   methods: {
+    // 退出登录
     logout () {
-      this.$store.dispatch('logout')
+      this.$confirm('是否要退出登录?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$store.dispatch('logout')
+      })
     },
+    // 登录
     login () {
       loginApi(this.form).then((val) => {
         this.$store.dispatch('loginSuccessSetToken', val.data.token).then(() => {
@@ -112,22 +121,25 @@ export default {
         })
       })
     },
+    // 注册
     register () {
       registerApi(this.form).then(() => {
         this.closeLogin()
       })
     },
     closeLogin () {
-      const mask = document.getElementById('mask')
-      mask.style.display = 'none'
-      this.$refs.login.style.display = 'none'
+      // const mask = document.getElementById('mask')
+      // mask.style.display = 'none'
+      // this.$refs.login.style.display = 'none'
+      this.$store.commit('SET_DIALOG', 'none')
       this.form = {}
       this.re_password = ''
     },
     showLogin () {
-      const mask = document.getElementById('mask')
-      mask.style.display = 'block'
-      this.$refs.login.style.display = 'block'
+      // const mask = document.getElementById('mask')
+      // mask.style.display = 'block'
+      // this.$refs.login.style.display = 'block'
+      this.$store.commit('SET_DIALOG', 'block')
     },
     changeLogin (type) {
       this.loginActive = type
