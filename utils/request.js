@@ -31,6 +31,8 @@ service.interceptors.response.use(
     const res = response.data
     if (res.code === 0 && res.message) {
       Message.success(res.message)
+    } else if (res.code === 1) {
+      Message.error(res.message)
     }
     return res
   },

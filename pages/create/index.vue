@@ -2,10 +2,14 @@
   <div class="fd-container bg-white rounded">
     <div class="editor-container">
       <div class="mt-16 text-center pt-8">
-        <input class="w-72 py-3 px-5 border-2 border-purple-400 rounded" placeholder="请输入标题" type="text">
+        <input v-model="form.title" class="w-1/2 py-3 px-5 border-2 border-purple-400 rounded" placeholder="请输入标题" type="text">
+      </div>
+      <div class="pt-8 flex w-1/2 justify-between mx-auto">
+        <el-radio v-model="form.type" fill="red" label="1" border>文字星球</el-radio>
+        <el-radio v-model="form.type" fill="red" label="2" border>艺术星球</el-radio>
       </div>
       <div class="mt-8 text-center">
-        <input class="w-1/2 py-3 px-5 border-2 border-purple-400 rounded" placeholder="请输入关键词(方便用户搜索)" type="text">
+        <input v-model="form.desc" class="w-full py-3 px-5 border-2 border-purple-400 rounded" placeholder="简介" type="text">
       </div>
       <div class="mt-8 mb-8 pb-16">
         <div class="editor">
@@ -147,7 +151,7 @@
           <editor-content class="editor__content" :editor="editor" />
         </div>
         <div class="text-center">
-          <fd-button plain size="medium">发 布</fd-button>
+          <fd-button plain size="medium" @click="saveStar">发 布</fd-button>
         </div>
       </div>
     </div>
@@ -176,6 +180,7 @@ import {
   Underline,
   History
 } from 'tiptap-extensions'
+import { addWorkApi } from '@/api/work'
 export default {
   components: {
     EditorContent,
@@ -183,6 +188,12 @@ export default {
   },
   data () {
     return {
+      form: {
+        title: '',
+        desc: '',
+        content: '',
+        type: ''
+      },
       editor: null
     }
   },
@@ -212,8 +223,7 @@ export default {
         `,
       onUpdate: ({ getHTML }) => {
         // get new content on update
-        const newContent = getHTML()
-        console.log(newContent)
+        this.form.content = getHTML()
       },
       extensions: [
         new Image(),
@@ -241,6 +251,11 @@ export default {
     this.editor.destroy()
   },
   methods: {
+    saveStar () {
+      addWorkApi(this.form).then(val => {
+        console.log(val)
+      })
+    },
     showImagePrompt (command) {
       const src = prompt('Enter the url of your image here')
       if (src !== null) {
@@ -268,5 +283,15 @@ export default {
 }
 .menubar {
   border-bottom: 1px solid #a68bfa;
+}
+.el-radio.is-bordered.is-checked {
+  border: 2px solid #a68bfa
+}
+::v-deep .el-radio__input.is-checked+.el-radio__label {
+  color: #a68bfa;
+}
+::v-deep .el-radio__input.is-checked .el-radio__inner {
+  color: #a68bfa;
+  background: #a68bfa;
 }
 </style>

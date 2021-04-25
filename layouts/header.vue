@@ -116,6 +116,7 @@ export default {
       loginApi(this.form).then((val) => {
         this.$store.dispatch('loginSuccessSetToken', val.data.token).then(() => {
           this.$store.dispatch('getInfo').then(() => {
+            console.log('getInfo')
             this.closeLogin()
           })
         })
