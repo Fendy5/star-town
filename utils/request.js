@@ -9,9 +9,12 @@ const service = axios.create({
   timeout: 30000 // request timeout
 })
 
+// 在axios拦截器中检测是否用token，如果存在token就在请求头添加Authorization
 service.interceptors.request.use(
   (config) => {
+    // 判断store是否存在token
     if (state().token) {
+      // 存在token就在请求携带token
       config.headers.Authorization = 'Bearer ' + state().token
     }
     return config
@@ -39,7 +42,7 @@ service.interceptors.response.use(
   (error) => {
     Message.closeAll()
     Message({
-      message: '网络错误，请稍后重试',
+      message: error.message,
       type: 'error',
       duration: 2 * 1000
     })

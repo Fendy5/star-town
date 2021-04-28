@@ -2,14 +2,26 @@
   <div class="fd-container bg-white rounded">
     <div class="editor-container">
       <div class="mt-16 text-center pt-8">
-        <input v-model="form.title" class="w-1/2 py-3 px-5 border-2 border-purple-400 rounded" placeholder="请输入标题" type="text">
+        <input v-model="form.title" class="w-1/2 py-3 px-5 border-1 border-purple-400 rounded" placeholder="请输入标题" type="text">
       </div>
-      <div class="pt-8 flex w-1/2 justify-between mx-auto">
-        <el-radio v-model="form.type" fill="red" label="1" border>文字星球</el-radio>
-        <el-radio v-model="form.type" fill="red" label="2" border>艺术星球</el-radio>
+      <div class="pt-8 text-center">
+        <el-select v-model="form.type" class="w-1/2 border-1 border-purple-400 rounded" placeholder="请选择">
+          <el-option-group
+            v-for="group in options"
+            :key="group.label"
+            :label="group.label"
+          >
+            <el-option
+              v-for="item in group.options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-option-group>
+        </el-select>
       </div>
       <div class="mt-8 text-center">
-        <input v-model="form.desc" class="w-full py-3 px-5 border-2 border-purple-400 rounded" placeholder="简介" type="text">
+        <input v-model="form.desc" class="w-full py-3 px-5 border-1 border-purple-400 rounded" placeholder="简介" type="text">
       </div>
       <div class="mt-8 mb-8 pb-16">
         <div class="editor">
@@ -188,6 +200,37 @@ export default {
   },
   data () {
     return {
+      options: [
+        {
+          label: '文字星球',
+          options: [
+            {
+              value: '1',
+              label: '文章'
+            },
+            {
+              value: '2',
+              label: '小说'
+            },
+            {
+              value: '3',
+              label: '评说'
+            }]
+        },
+        {
+          label: '艺术星球',
+          options: [
+            {
+              value: '4',
+              label: '漫画'
+            }, {
+              value: '5',
+              label: '写真'
+            }, {
+              value: '6',
+              label: '手绘'
+            }]
+        }],
       form: {
         title: '',
         desc: '',
@@ -269,7 +312,7 @@ export default {
 <style lang="scss" src="../../assets/css/editor/index.scss"></style>
 <style lang="scss" scoped>
 .editor {
-  border: 2px solid #a68bfa;
+  border: 1px solid #a68bfa;
   padding: 24px;
 }
 .editor-container {

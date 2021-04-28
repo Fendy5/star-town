@@ -114,12 +114,13 @@ export default {
     // 登录
     login () {
       loginApi(this.form).then((val) => {
-        this.$store.dispatch('loginSuccessSetToken', val.data.token).then(() => {
-          this.$store.dispatch('getInfo').then(() => {
-            console.log('getInfo')
-            this.closeLogin()
+        if (val.code === 0) {
+          this.$store.dispatch('loginSuccessSetToken', val.data.token).then(() => {
+            this.$store.dispatch('getInfo').then(() => {
+              this.closeLogin()
+            })
           })
-        })
+        }
       })
     },
     // 注册

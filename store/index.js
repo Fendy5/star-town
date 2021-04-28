@@ -1,4 +1,4 @@
-import { Message } from 'element-ui'
+// import { Message } from 'element-ui'
 import { getToken, removeToken, setToken } from '~/utils/cookie'
 import { getUserInfoApi } from '~/api/user'
 
@@ -40,15 +40,18 @@ export const actions = {
     })
   },
 
-  // get user info
+  // 获取用户信息
   getInfo ({ commit }) {
+    // 返回一个期约
     return new Promise((resolve, reject) => {
+      // 请求获取用户信息的API
       getUserInfoApi().then((response) => {
+        // 如果token已失效则删除token
         if (response.code === 1) {
-          Message.error('登录状态已失效，请重新登录')
           commit('REMOVE_TOKEN')
           removeToken()
         } else {
+          // 如果token有效则设置用户信息到sotre中
           const user = response.data.user
           commit('SET_USER', user)
           commit('SET_TOKEN', getToken())

@@ -12,6 +12,7 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
+    'space-before-function-paren': 0,
     quotes: 0,
     'arrow-parens': 0,
     'no-console': 0,
