@@ -1,9 +1,9 @@
 <template>
   <div>
-    <button v-if="size==='small'" :class="{'bt-primary':!plain && !none,'plain':plain}" class="fd-button py-1 px-4 flex items-center" @click="handleClick">
+    <button v-if="size==='small'" :disabled="disabled" :class="{'bt-primary':!plain && !none,'plain':plain}" class="fd-button py-1 px-4 flex items-center" @click="handleClick">
       <slot />
     </button>
-    <button v-else-if="size==='medium'" :class="{'bt-primary':!plain && !none,'plain':plain}" class="fd-button px-12 py-4" @click="handleClick">
+    <button v-else-if="size==='medium'" :disabled="disabled" :class="{'bt-primary':!plain && !none,'plain':plain}" class="fd-button px-12 py-3" @click="handleClick">
       <slot />
     </button>
   </div>
@@ -12,6 +12,10 @@
 <script>
 export default {
   props: {
+    disabled: {
+      type: Boolean,
+      default: false
+    },
     size: {
       type: String, // medium / small / mini
       default: 'small'
@@ -38,7 +42,7 @@ export default {
 
 <style lang="scss" scoped>
 .plain {
-  @apply border-2 border-purple-500 text-purple-400
+  @apply border border-purple-500 text-purple-400
 }
 .bt-primary {
   @apply bg-primary text-white
