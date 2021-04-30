@@ -17,7 +17,7 @@
       <!--    推荐内容-->
       <div class="rounded-xl star-recommended grid grid-cols-4 gap-6 place-items-end mb-8">
         <div v-for="item in homeRecommend" :key="item.id" class="rounded-xl item overflow-hidden">
-          <div :style="{ 'background-image': 'url(' + item.cover + ')' }" class="img-bg">
+          <div :style="{ 'background-image': 'url(' + item.cover + ')' }" class="img-bg bg-center">
             <div class="flex justify-between pt-4">
               <div class="flex ml-4">
                 <img class="w-7 h-7 rounded-full" :src="item.user.avatar" alt="">
@@ -46,7 +46,7 @@
                 </div>
               </div>
               <!--   时间-->
-              <div class="text-secondary pr-4">{{ item.created_at }}</div>
+              <div class="text-secondary pr-4">{{ item.create_time }}</div>
             </div>
           </div>
         </div>
@@ -54,20 +54,20 @@
       <!--      排行榜-->
       <tab :tabs="ranks" title="排行榜">
         <div class="mt-12 pb-40 rounded-xl star-recommended flex justify-between flex-wrap">
-          <div v-for="item in 3" :key="item" class="rounded-2xl item mb-6">
-            <div :style="{ 'background-image': 'url(' + images[1] + ')' }" class="img-bg2">
+          <div v-for="i in rankList" :key="i.id" class="rounded-2xl item rank mb-6">
+            <div :style="{ 'background-image': 'url(' + i.cover + ')' }" class="img-bg2">
               <div class="flex justify-between pt-4 px-4">
                 <div class="flex ml-4">
-                  <img class="w-7 h-7 rounded-full" src="https://image.fendy5.cn/s/EJ34YcPTIMsg7RwX.png" alt="">
-                  <div class="text-white pl-2">昵称</div>
+                  <img class="w-7 h-7 rounded-full" :src="i.user.avatar" alt="">
+                  <div class="text-white pl-2">{{ i.user.nickname }}</div>
                 </div>
                 <fd-button size="small">关注</fd-button>
               </div>
             </div>
             <div class="pl-4 pb-2 bg-white rounded-xl">
-              <div class="py-2 text-black cursor-pointer">主题主题主题主题主题主题...</div>
+              <div class="py-2 text-black cursor-pointer">{{ i.title }}</div>
               <!--   文字文章-->
-              <p class="text-secondary pb-2">文字-文章</p>
+              <p class="text-secondary pb-2">{{ workType.get(i.type) }}</p>
               <!--   页眉-->
               <div class="flex justify-between">
                 <!--   评论、喜欢-->
@@ -75,22 +75,21 @@
                   <!--   喜欢-->
                   <div class="flex items-center pr-2 cursor-pointer">
                     <svg-icon icon-class="like" class="w-4 h-4 mr-1" />
-                    <div class="">100+</div>
+                    <div class="">{{ i.likes }}</div>
                   </div>
                   <!--  评论-->
                   <div class="flex items-center cursor-pointer">
                     <svg-icon icon-class="comment" class="w-4 h-4 mr-1" />
-                    <div class="">100+</div>
+                    <div class="">{{ i.comments }}</div>
                   </div>
                 </div>
                 <!--   时间-->
-                <div class="text-secondary pr-4">21-03-16 22:23</div>
+                <div class="text-secondary pr-4">{{ i.create_time }}</div>
               </div>
             </div>
           </div>
         </div>
       </tab>
-      <div class="py-12">11233</div>
       <!--      &lt;!&ndash;      排行榜文字标签&ndash;&gt;-->
       <!--      <div class="mt-24 text-2xl border-b-4 border-black pb-4 inline-block mb-8">排行榜</div>-->
       <!--      &lt;!&ndash;      排行榜的Tab&ndash;&gt;-->
@@ -159,6 +158,7 @@ export default Vue.extend({
       homeRecommend: [],
       tab: 0, // 10-首页推荐，11-个性推荐，12-最新发布
       rankTab: 0,
+      rankList: [],
       ranks: ['文字榜单', '艺术榜单'],
       images: [
         'https://image.fendy5.cn/s/PyFHOprAVGQJOD06.png',
@@ -169,9 +169,13 @@ export default Vue.extend({
   mounted () {
     getIndexApi().then(val => {
       this.homeRecommend = val.data.home_recommend
+      this.rankList = val.data.ranks
     })
   },
   methods: {
+    getRecommend () {
+
+    },
     // 点赞
     like (workId: number) {
       likeApi({ work_id: workId })
@@ -199,6 +203,9 @@ export default Vue.extend({
     width: 353px;
     height: 337px;
   }
+}
+.rank {
+  width: 353px;
 }
 
 .carousel {

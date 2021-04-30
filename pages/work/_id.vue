@@ -28,12 +28,12 @@
             <!--   喜欢-->
             <div class="flex items-center pr-2 cursor-pointer">
               <svg-icon icon-class="like" class="w-4 h-4 mr-1" />
-              <div class="">500</div>
+              <div class="">{{ likes }}</div>
             </div>
             <!--  评论-->
             <div class="flex items-center cursor-pointer">
               <svg-icon icon-class="comment" class="w-4 h-4 mr-1" />
-              <div class="">300</div>
+              <div class="">{{ commentCount }}</div>
             </div>
           </div>
         </div>
@@ -49,19 +49,19 @@
         </div>
         <div class="pt-7 divide-y divide-gray-400 divide-opacity-25">
           <div v-for="i in comments" :key="i.id">
-            <div class="flex justify-between py-8">
+            <div class="flex justify-between pt-8">
               <div class="flex">
-                <div class="flex ml-4 mr-4 w-12">
+                <div class="flex ml-4 mr-4 w-32">
                   <img class="w-7 h-7 rounded-full" :src="i.avatar" alt="">
                   <div class="pl-2">{{ i.nickname }}</div>
                 </div>
-                <div class="pl-14 relative">
+                <div class="relative">
                   <div>{{ i.content }}</div>
                   <div class="flex">
-                    <el-link type="primary" @click="reply(i.id,i.user_id)">回复</el-link>
-                    <el-popconfirm title="确定删除吗？" @confirm="deleteComment(i.id)">
-                      <span v-if="user.id===i.user_id" slot="reference" class="ml-4"> <el-link type="danger">删除 </el-link></span>
+                    <el-popconfirm v-if="user.id===i.user_id" title="确定删除吗？" @confirm="deleteComment(i.id)">
+                      <span slot="reference"> <el-link type="danger">删除 </el-link></span>
                     </el-popconfirm>
+                    <el-link v-else type="primary" @click="reply(i.id,i.user_id)">回复</el-link>
                   </div>
                 </div>
               </div>
@@ -83,11 +83,11 @@
                 </div>
                 <div class="py-2">{{ item.content }}</div>
                 <div class="flex">
-                  <el-link type="primary" @click="reply(i.id,item.user_id)">回复</el-link>
-                  <el-popconfirm title="确定删除吗？" @confirm="deleteComment(item.id)">
-                    <span v-if="user.id===item.user_id" slot="reference" class="ml-4"> <el-link type="danger">删除 </el-link></span>
+                  <el-popconfirm v-if="user.id===item.user_id" title="确定删除吗？" @confirm="deleteComment(item.id)">
+                    <span slot="reference"> <el-link type="danger">删除 </el-link></span>
                     <!--                    <el-button slot="reference">删除</el-button>-->
                   </el-popconfirm>
+                  <el-link v-else type="primary" @click="reply(i.id,item.user_id)">回复</el-link>
                 </div>
               </div>
             </div>
@@ -109,6 +109,8 @@ export default {
       loading: true,
       comments: [],
       comment: '',
+      commentCount: 0,
+      likes: 0,
       work: {}
     }
   },
@@ -118,6 +120,8 @@ export default {
   mounted () {
     getWorkApi(this.$route.params.id).then(value => {
       this.work = value.data.work
+      this.likes = value.data.likes
+      this.commentCount = value.data.comments_count
       this.loading = false
     })
     this.getComments()

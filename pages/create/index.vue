@@ -235,6 +235,7 @@ export default {
         title: '',
         desc: '',
         content: '',
+        cover: '',
         type: ''
       },
       editor: null
@@ -302,6 +303,9 @@ export default {
     showImagePrompt (command) {
       const src = prompt('Enter the url of your image here')
       if (src !== null) {
+        if (!this.form.cover) {
+          this.form.cover = src
+        }
         command({ src })
       }
     }
