@@ -4,7 +4,7 @@
     <div class="fd-container">
       <!--      文字星球-->
       <div class="tab-panel">
-        <tab title="文字星球">
+        <tab title="文字星球" @changeTab="changeTextTab">
           <text-list :text-list="textList" />
           <div class="text-center">
             <fd-button plain size="medium">更多</fd-button>
@@ -13,7 +13,7 @@
       </div>
       <!--      艺术星球-->
       <div class="tab-panel">
-        <tab :tabs="artTabs" title="艺术星球">
+        <tab :tabs="artTabs" title="艺术星球" @changeTab="changeArtTab">
           <art-list :art-list="artList" />
           <div class="text-center">
             <fd-button plain size="medium">更多</fd-button>
@@ -30,6 +30,7 @@ import tab from '@/components/Tab'
 import textList from '@/components/TextList'
 import ArtList from '@/components/ArtList'
 import fdButton from '@/components/FdButton'
+import { getWorksApi } from '@/api/fans'
 
 export default {
   components: {
@@ -45,56 +46,31 @@ export default {
         en: 'Fans community',
         zh: '粉丝社区'
       },
-      artList: [
-        {
-          id: 1,
-          nickname: '昵称',
-          avatar: 'https://image.fendy5.cn/s/u7CG5B8qQUIoY2Wf.png',
-          bg: 'https://image.fendy5.cn/s/7UniAOwgZLMdY0kj.png'
-        },
-        {
-          id: 2,
-          nickname: '昵称',
-          avatar: 'https://image.fendy5.cn/s/u7CG5B8qQUIoY2Wf.png',
-          bg: 'https://image.fendy5.cn/s/7UniAOwgZLMdY0kj.png'
-        },
-        {
-          id: 3,
-          nickname: '昵称',
-          avatar: 'https://image.fendy5.cn/s/u7CG5B8qQUIoY2Wf.png',
-          bg: 'https://image.fendy5.cn/s/7UniAOwgZLMdY0kj.png'
-        },
-        {
-          id: 4,
-          nickname: '昵称',
-          avatar: 'https://image.fendy5.cn/s/u7CG5B8qQUIoY2Wf.png',
-          bg: 'https://image.fendy5.cn/s/7UniAOwgZLMdY0kj.png'
-        }
-      ],
+      artList: [],
       artTabs: ['漫画', '写真', '手绘'],
-      textList: [
-        {
-          id: 1,
-          nickname: '昵称',
-          title: '主题',
-          desc: '这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段...',
-          create_time: '今天 · 13:40'
-        },
-        {
-          id: 2,
-          nickname: '昵称',
-          title: '主题',
-          desc: '这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段...',
-          create_time: '今天 · 13:40'
-        },
-        {
-          id: 3,
-          nickname: '昵称',
-          title: '主题',
-          desc: '这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段...',
-          create_time: '今天 · 13:40'
-        }
-      ]
+      textList: []
+    }
+  },
+  mounted () {
+    this.getTextList(1)
+    this.getArtList(4)
+  },
+  methods: {
+    changeArtTab (val) {
+      this.getArtList(val + 3)
+    },
+    changeTextTab (val) {
+      this.getTextList(val)
+    },
+    getArtList (type) {
+      getWorksApi({ type }).then(value => {
+        this.artList = value.data.works
+      })
+    },
+    getTextList (type) {
+      getWorksApi({ type }).then(value => {
+        this.textList = value.data.works
+      })
     }
   }
 }

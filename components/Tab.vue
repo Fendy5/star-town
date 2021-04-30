@@ -42,6 +42,7 @@ export default {
   methods: {
     changeTab (index) {
       this.activeIndex = index
+      this.$emit('changeTab', index + 1)
     }
   }
 }

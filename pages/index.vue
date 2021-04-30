@@ -17,7 +17,7 @@
       <!--    推荐内容-->
       <div class="rounded-xl star-recommended grid grid-cols-4 gap-6 place-items-end mb-8">
         <div v-for="item in homeRecommend" :key="item.id" class="rounded-xl item overflow-hidden">
-          <div :style="{ 'background-image': 'url(' + item.cover + ')' }" class="img-bg bg-center">
+          <div :style="{ 'background-image': 'url(' + item.cover + ')' }" class="img-bg bg-cover">
             <div class="flex justify-between pt-4">
               <div class="flex ml-4">
                 <img class="w-7 h-7 rounded-full" :src="item.user.avatar" alt="">
@@ -26,8 +26,8 @@
               <button class="bg-primary text-white rounded-2xl w-16 h-8 mr-4 focus:outline-none">关注</button>
             </div>
           </div>
-          <div class="pl-4 pb-2 bg-white">
-            <router-link :to="`/work/${item.id}`" class="py-2 inline-block text-black">{{ item.title }}</router-link>
+          <div class="px-4 pb-2 bg-white">
+            <router-link :to="`/work/${item.id}`" class="py-2 h-30 inline-block text-black ellipsis-1">{{ item.title }}</router-link>
             <!--   文字文章-->
             <p class="text-secondary pb-2">{{ workType.get(item.type) }}</p>
             <!--   页眉-->
@@ -52,10 +52,10 @@
         </div>
       </div>
       <!--      排行榜-->
-      <tab :tabs="ranks" title="排行榜">
+      <tab :tabs="ranks" title="排行榜" @changeTab="changeRankTab">
         <div class="mt-12 pb-40 rounded-xl star-recommended flex justify-between flex-wrap">
-          <div v-for="i in rankList" :key="i.id" class="rounded-2xl item rank mb-6">
-            <div :style="{ 'background-image': 'url(' + i.cover + ')' }" class="img-bg2">
+          <div v-for="i in rankList" :key="i.id" class="rounded-xl overflow-hidden item rank mb-6">
+            <div :style="{ 'background-image': 'url(' + i.cover + ')' }" class="img-bg2 bg-cover">
               <div class="flex justify-between pt-4 px-4">
                 <div class="flex ml-4">
                   <img class="w-7 h-7 rounded-full" :src="i.user.avatar" alt="">
@@ -144,7 +144,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import fdButton from '@/components/FdButton.vue'
-import { getIndexApi } from '~/api'
+import { getArtListApi, getIndexApi } from '~/api'
 import { workTypeMixin } from '~/mixins'
 import { likeApi } from '~/api/like'
 
@@ -182,7 +182,9 @@ export default Vue.extend({
     },
     // 切换排行榜
     changeRankTab (index: number) {
-      this.rankTab = index
+      getArtListApi({ type: index }).then(val => {
+        this.rankList = val.data.arts
+      })
     },
     // 切换推荐
     changeTab (index: number) {

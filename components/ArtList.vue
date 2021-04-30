@@ -1,11 +1,11 @@
 <template>
   <div class="grid grid-cols-4 pb-6">
     <div v-for="i in artList" :key="i.id" class="art">
-      <div :style="{'background':`url(${i.bg})`}" class="cover rounded-2xl px-4 pt-4">
+      <div :style="{'background-image':`url(${i.cover})`}" class="cover bg-cover rounded-2xl px-4 pt-4">
         <div class="flex justify-between">
           <div class="flex items-center">
-            <img class="rounded-full w-8 h-8" :src="i.avatar" alt="">
-            <span class="text-white pl-2">{{ i.nickname }}</span>
+            <img class="rounded-full w-8 h-8" :src="i.user.avatar" alt="">
+            <span class="text-white pl-2">{{ i.user.nickname }}</span>
           </div>
           <fd-button>关注</fd-button>
         </div>
@@ -17,12 +17,12 @@
           <!--   喜欢-->
           <div class="flex items-center pr-2 cursor-pointer">
             <svg-icon icon-class="like" class="w-4 h-4 mr-1" />
-            <div class="">100+</div>
+            <div class="">{{ i.likes }}</div>
           </div>
           <!--  评论-->
           <div class="flex items-center cursor-pointer">
             <svg-icon icon-class="comment" class="w-4 h-4 mr-1" />
-            <div class="">100+</div>
+            <div class="">{{ i.comments }}</div>
           </div>
         </div>
         <!--   时间-->

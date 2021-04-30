@@ -8,3 +8,11 @@ export function getIndexApi(params) {
     params
   })
 }
+
+export function getArtListApi(params) {
+  return request({
+    url: `/api/v1/get_arts`,
+    method: 'get',
+    params
+  })
+}
