@@ -20,8 +20,17 @@
           </fd-button>
         </div>
       </div>
-      <tab :tabs="artTabs">
-        <art-list :art-list="artList" />
+      <tab :tabs="artTabs" @changeTab="changeTab">
+        <svg-icon v-if="loading" class="mx-auto" icon-class="loading" />
+        <art-list v-else :art-list="artList" />
+        <div class="py-8">
+          <el-pagination
+            class="text-center"
+            layout="prev, pager, next"
+            :total="total"
+            @current-change="handleCurrentChange"
+          />
+        </div>
       </tab>
     </div>
   </div>
@@ -29,14 +38,45 @@
 
 <script>
 import ArtList from '@/components/ArtList'
+import { getWorksApi } from '@/api/fans'
 export default {
   components: {
     ArtList
   },
   data () {
     return {
+      loading: true,
+      tab: 1,
+      total: 0,
+      page: {
+        pageNo: 1,
+        pageSize: 8
+      },
       artTabs: ['漫画', '写真', '手绘'],
       artList: []
+    }
+  },
+  created () {
+    this.getArtList()
+  },
+  methods: {
+    changeTab (val) {
+      this.loading = true
+      this.tab = val
+      this.page.pageNo = 1
+      this.getArtList()
+    },
+    handleCurrentChange (val) {
+      this.loading = true
+      this.page.pageNo = val
+      this.getArtList()
+    },
+    getArtList () {
+      getWorksApi({ type: this.tab, ...this.page }).then(val => {
+        this.artList = val.data.works
+        this.total = val.data.total
+        this.loading = false
+      })
     }
   }
 }

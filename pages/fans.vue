@@ -9,7 +9,9 @@
           <div v-else>
             <text-list :text-list="textList" />
             <div class="text-center">
-              <fd-button plain size="medium">更多</fd-button>
+              <fd-button plain size="medium">
+                <NuxtLink to="/text-star">更多</NuxtLink>
+              </fd-button>
             </div>
           </div>
         </tab>
@@ -21,7 +23,9 @@
           <div v-else>
             <art-list :art-list="artList" />
             <div class="text-center">
-              <fd-button plain size="medium">更多</fd-button>
+              <fd-button plain size="medium">
+                <NuxtLink to="/art-star">更多</NuxtLink>
+              </fd-button>
             </div>
           </div>
         </tab>
