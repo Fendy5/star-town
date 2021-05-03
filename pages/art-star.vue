@@ -36,32 +36,7 @@ export default {
   data () {
     return {
       artTabs: ['漫画', '写真', '手绘'],
-      artList: [
-        {
-          id: 1,
-          nickname: '昵称',
-          avatar: 'https://image.fendy5.cn/s/u7CG5B8qQUIoY2Wf.png',
-          bg: 'https://image.fendy5.cn/s/7UniAOwgZLMdY0kj.png'
-        },
-        {
-          id: 2,
-          nickname: '昵称',
-          avatar: 'https://image.fendy5.cn/s/u7CG5B8qQUIoY2Wf.png',
-          bg: 'https://image.fendy5.cn/s/7UniAOwgZLMdY0kj.png'
-        },
-        {
-          id: 3,
-          nickname: '昵称',
-          avatar: 'https://image.fendy5.cn/s/u7CG5B8qQUIoY2Wf.png',
-          bg: 'https://image.fendy5.cn/s/7UniAOwgZLMdY0kj.png'
-        },
-        {
-          id: 4,
-          nickname: '昵称',
-          avatar: 'https://image.fendy5.cn/s/u7CG5B8qQUIoY2Wf.png',
-          bg: 'https://image.fendy5.cn/s/7UniAOwgZLMdY0kj.png'
-        }
-      ]
+      artList: []
     }
   }
 }

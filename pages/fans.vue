@@ -5,18 +5,24 @@
       <!--      文字星球-->
       <div class="tab-panel">
         <tab title="文字星球" @changeTab="changeTextTab">
-          <text-list :text-list="textList" />
-          <div class="text-center">
-            <fd-button plain size="medium">更多</fd-button>
+          <svg-icon v-if="!textList.length" class="mx-auto" icon-class="loading" />
+          <div v-else>
+            <text-list :text-list="textList" />
+            <div class="text-center">
+              <fd-button plain size="medium">更多</fd-button>
+            </div>
           </div>
         </tab>
       </div>
       <!--      艺术星球-->
       <div class="tab-panel">
         <tab :tabs="artTabs" title="艺术星球" @changeTab="changeArtTab">
-          <art-list :art-list="artList" />
-          <div class="text-center">
-            <fd-button plain size="medium">更多</fd-button>
+          <svg-icon v-if="!artList.length" class="mx-auto" icon-class="loading" />
+          <div v-else>
+            <art-list :art-list="artList" />
+            <div class="text-center">
+              <fd-button plain size="medium">更多</fd-button>
+            </div>
           </div>
         </tab>
       </div>
@@ -57,9 +63,11 @@ export default {
   },
   methods: {
     changeArtTab (val) {
+      this.artList = []
       this.getArtList(val + 3)
     },
     changeTextTab (val) {
+      this.textList = []
       this.getTextList(val)
     },
     getArtList (type) {

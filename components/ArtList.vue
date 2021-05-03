@@ -4,8 +4,8 @@
       <div :style="{'background-image':`url(${i.cover})`}" class="cover bg-cover rounded-2xl px-4 pt-4">
         <div class="flex justify-between">
           <div class="flex items-center">
-            <img class="rounded-full w-8 h-8" :src="i.user.avatar" alt="">
-            <span class="text-white pl-2">{{ i.user.nickname }}</span>
+            <img class="rounded-full w-8 h-8" :src="i.user?i.user.avatar:null" alt="">
+            <span class="text-white pl-2">{{ i.user?i.user.nickname:null }}</span>
           </div>
           <fd-button>关注</fd-button>
         </div>
@@ -37,14 +37,7 @@ export default {
   props: {
     artList: {
       type: Array,
-      default: () => [
-        {
-          id: 1,
-          nickname: '昵称',
-          avatar: 'https://image.fendy5.cn/s/u7CG5B8qQUIoY2Wf.png',
-          bg: 'https://image.fendy5.cn/s/7UniAOwgZLMdY0kj.png'
-        }
-      ]
+      default: () => []
     }
   },
   data () {

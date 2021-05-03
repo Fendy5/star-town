@@ -15,7 +15,10 @@
         <fd-button none size="medium" :class="{'bg-primary':tab===2}" class="rounded-full" @click="changeTab(2)">最新发布</fd-button>
       </div>
       <!--    推荐内容-->
-      <div class="rounded-xl star-recommended grid grid-cols-4 gap-6 place-items-end mb-8">
+      <div v-if="homeRecommend.length===0" class="flex justify-center">
+        <svg-icon icon-class="loading" />
+      </div>
+      <div v-else class="rounded-xl star-recommended grid grid-cols-4 gap-6 place-items-end mb-8">
         <div v-for="item in homeRecommend" :key="item.id" class="rounded-xl item overflow-hidden">
           <div :style="{ 'background-image': 'url(' + item.cover + ')' }" class="img-bg bg-cover">
             <div class="flex justify-between pt-4">
@@ -51,9 +54,13 @@
           </div>
         </div>
       </div>
+
       <!--      排行榜-->
       <tab :tabs="ranks" title="排行榜" @changeTab="changeRankTab">
-        <div class="mt-12 pb-40 rounded-xl star-recommended flex justify-between flex-wrap">
+        <div v-if="rankList.length===0" class="flex justify-center">
+          <svg-icon icon-class="loading" />
+        </div>
+        <div v-else class="mt-12 pb-40 rounded-xl star-recommended flex justify-between flex-wrap">
           <div v-for="i in rankList" :key="i.id" class="rounded-xl overflow-hidden item rank mb-6">
             <div :style="{ 'background-image': 'url(' + i.cover + ')' }" class="img-bg2 bg-cover">
               <div class="flex justify-between pt-4 px-4">
@@ -182,6 +189,7 @@ export default Vue.extend({
     },
     // 切换排行榜
     changeRankTab (index: number) {
+      this.rankList = []
       getArtListApi({ type: index }).then(val => {
         this.rankList = val.data.arts
       })

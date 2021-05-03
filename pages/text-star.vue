@@ -20,8 +20,17 @@
           </fd-button>
         </div>
       </div>
-      <tab>
-        <text-list :text-list="textList" />
+      <tab @changeTab="changeTab">
+        <svg-icon v-if="loading" class="mx-auto" icon-class="loading" />
+        <text-list v-else :text-list="textList" />
+        <div class="py-8">
+          <el-pagination
+            class="text-center"
+            layout="prev, pager, next"
+            :total="total"
+            @current-change="handleCurrentChange"
+          />
+        </div>
       </tab>
     </div>
   </div>
@@ -31,6 +40,7 @@
 import FdButton from '@/components/FdButton'
 import TextList from '@/components/TextList'
 import Tab from '@/components/Tab'
+import { getWorksApi } from '@/api/fans'
 export default {
   components: {
     Tab,
@@ -39,36 +49,41 @@ export default {
   },
   data () {
     return {
-      textList: [
-        {
-          id: 1,
-          nickname: '昵称',
-          title: '主题',
-          likes: 12,
-          comments: 34,
-          desc: '这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段...',
-          create_time: '今天 · 13:40'
-        },
-        {
-          id: 2,
-          nickname: '昵称',
-          title: '主题',
-          likes: 12,
-          comments: 34,
-          desc: '这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段...',
-          create_time: '今天 · 13:40'
-        },
-        {
-          id: 3,
-          nickname: '昵称',
-          title: '主题',
-          likes: 12,
-          comments: 34,
-          desc: '这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段文字这是一段...',
-          create_time: '今天 · 13:40'
-        }
-      ]
+      loading: true,
+      tab: 1,
+      total: 0,
+      page: {
+        pageNo: 1,
+        pageSize: 5
+      },
+      textList: []
     }
+  },
+  created () {
+    this.getTextList()
+  },
+  methods: {
+    changeTab (val) {
+      this.loading = true
+      this.tab = val
+      this.page.pageNo = 1
+      this.getTextList()
+    },
+    handleCurrentChange (val) {
+      this.loading = true
+      this.page.pageNo = val
+      this.getTextList()
+    },
+    getTextList () {
+      getWorksApi({ type: this.tab, ...this.page }).then(val => {
+        this.textList = val.data.works
+        this.total = val.data.total
+        this.loading = false
+      })
+    }
+  },
+  head: {
+    title: '文字星球'
   }
 }
 </script>
@@ -77,5 +92,8 @@ export default {
 .banner {
   height: 320px;
   background: url("https://image.fendy5.cn/s/lXo8HtTQ2dnOuBkh.png");
+}
+::v-deep .el-pager li {
+  font-size: 18px;
 }
 </style>

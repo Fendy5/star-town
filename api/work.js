@@ -8,9 +8,10 @@ export function addWorkApi (data) {
   })
 }
 
-export function getWorkApi (id) {
+export function getWorkApi (id, params) {
   return request({
     url: `/api/v1/works/${id}`,
-    method: 'get'
+    method: 'get',
+    params
   })
 }

@@ -24,7 +24,7 @@
           <div class="pl-2 text-sm">注册</div>
         </div>
         <div v-else class="flex pl-4 items-center">
-          <router-link to="my" class="px-2 text-sm">个人中心</router-link>
+          <router-link to="/my" class="px-2 text-sm">个人中心</router-link>
           <div class="fd-w-2 h-3 bg-gray-600" />
           <div class="px-2 text-sm cursor-pointer" @click="logout">退出</div>
         </div>
@@ -70,7 +70,7 @@
       </div>
       <button class="bg-primary text-white rounded-full h-16 text-xl mt-12 w-full focus:outline-none" @click="register">立即注册</button>
     </div>
-    <div id="mask" :style="{display:dialog}" @click="closeLogin" />
+    <div class="mask" :style="{display:dialog}" @click="closeLogin" />
   </header>
 </template>
 
@@ -141,7 +141,7 @@ export default {
       // const mask = document.getElementById('mask')
       // mask.style.display = 'block'
       // this.$refs.login.style.display = 'block'
-      this.$store.commit('SET_DIALOG', 'block')
+      if (!this.user.avatar) { this.$store.commit('SET_DIALOG', 'block') }
     },
     changeLogin (type) {
       this.loginActive = type
@@ -151,33 +151,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.fd-input {
-  @apply w-full py-3 px-9 rounded-3xl text-xl border-2 border-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500
-}
-.login {
-  width: 590px;
-  z-index: 201;
-  background: #fff;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  display: none;
-  transform: translate(-50%, -50%);
-}
-.login-active {
-  @apply text-purple-500 border-b-2 pb-4 border-purple-500
-}
-#mask {
-  z-index: 200;
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  opacity: .5;
-  display: none;
-  background: #000;
-}
 .header-active {
   color: #6d00ff;
   &::before {

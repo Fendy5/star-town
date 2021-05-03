@@ -23,3 +23,51 @@ export function getUserInfoApi (params) {
     params
   })
 }
+
+// 用户中心api
+export function getUserCenterApi() {
+  return request({
+    url: `/api/v1/user`,
+    method: 'get'
+  })
+}
+
+// 我点赞的
+export function getMyLikeApi() {
+  return request({
+    url: `/api/v1/user/my_like`,
+    method: 'get'
+  })
+}
+
+// 我的评论
+export function getMyCommentApi() {
+  return request({
+    url: `/api/v1/user/my_comment`,
+    method: 'get'
+  })
+}
+
+// 我的创作
+export function getMyCreate() {
+  return request({
+    url: `/api/v1/user/my_create`,
+    method: 'get'
+  })
+}
+
+// 我关注的
+export function getMyFollowApi() {
+  return request({
+    url: `/api/v1/user/my_follow`,
+    method: 'get'
+  })
+}
+
+// 我关注的
+export function getMyFansApi() {
+  return request({
+    url: `/api/v1/user/my_fans`,
+    method: 'get'
+  })
+}

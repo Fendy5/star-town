@@ -5,20 +5,20 @@
         <!--    卡片头部-->
         <div class="fx-content-between">
           <div class="fx-items-center py-4">
-            <div class="text-sm">文字-文章</div>
-            <div class="text-lg pl-8">{{ i.title }}</div>
+            <div class="text-sm">{{ i.work?workType.get(i.work.type):'--' }}</div>
+            <div class="text-lg pl-8">{{ i.work?i.work.title:'--' }}</div>
           </div>
           <!--   评论、喜欢-->
           <div class="flex">
             <!--   喜欢-->
             <div class="flex items-center pr-2 cursor-pointer">
               <svg-icon icon-class="like" class="w-4 h-4 mr-1" />
-              <div class="">100+</div>
+              <div class="">{{ i.likes_count }}</div>
             </div>
             <!--  评论-->
             <div class="flex items-center cursor-pointer">
               <svg-icon icon-class="comment" class="w-4 h-4 mr-1" />
-              <div class="">100+</div>
+              <div class="">{{ i.comments_count }}</div>
             </div>
           </div>
         </div>
@@ -31,13 +31,18 @@
           <div class="flex justify-end items-center text-secondary">{{ i.create_time }}</div>
         </div>
       </div>
-      <div class="text-secondary text-center">查看完整回复...</div>
+      <div class="text-secondary text-center">
+        <NuxtLink :to="`/work/${i.work?i.work.work_id:''}`">查看完整回复...</NuxtLink>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { workTypeMixin } from '@/mixins'
+
 export default {
+  mixins: [workTypeMixin],
   props: {
     commentList: {
       type: Array,

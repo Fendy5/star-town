@@ -11,6 +11,7 @@ import {
   Button,
   Link,
   Loading,
+  Pagination,
   Popconfirm,
   Message
 } from 'element-ui'
@@ -21,6 +22,7 @@ Vue.use(Link)
 Vue.use(Popconfirm)
 Vue.use(Button)
 Vue.use(Select)
+Vue.use(Pagination)
 Vue.use(Loading)
 Vue.use(Input)
 Vue.use(Option)

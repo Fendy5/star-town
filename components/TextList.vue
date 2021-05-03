@@ -42,14 +42,7 @@ export default {
   props: {
     textList: {
       type: Array,
-      default: () => [
-        {
-          id: 1,
-          nickname: '',
-          title: '',
-          create_time: '',
-          desc: ''
-        }]
+      default: () => []
     }
   },
   data () {
