@@ -67,7 +67,6 @@ export default {
     credentials: true
   },
 
-  mode: 'universal',
   env: {
     BASE_URL: process.env.BASE_URL
   },
