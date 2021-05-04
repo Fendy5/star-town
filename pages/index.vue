@@ -149,7 +149,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import fdButton from '@/components/FdButton.vue'
-import Avatar from '@/components/Avatar'
+import Avatar from '@/components/Avatar.vue'
 import { getArtListApi, getIndexApi } from '~/api'
 import { workTypeMixin } from '~/mixins'
 import { likeApi } from '~/api/like'

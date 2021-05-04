@@ -136,7 +136,7 @@ export default {
   watch: {
     $route (to) {
       this.userId = to.query.id
-      this.initPage()
+      this.$router.go(0)
     }
   },
   mounted () {
