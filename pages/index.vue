@@ -22,10 +22,11 @@
         <div v-for="item in homeRecommend" :key="item.id" class="rounded-xl item overflow-hidden">
           <div :style="{ 'background-image': 'url(' + item.cover + ')' }" class="img-bg bg-cover">
             <div class="flex justify-between pt-4">
-              <div class="flex ml-4">
-                <img class="w-7 h-7 rounded-full" :src="item.user.avatar" alt="">
-                <div class="text-white pl-2">{{ item.user.nickname }}</div>
-              </div>
+              <!--              <div class="flex ml-4">-->
+              <!--                <img class="w-7 h-7 rounded-full" :src="item.user.avatar" alt="">-->
+              <!--                <div class="text-white pl-2">{{ item.user.nickname }}</div>-->
+              <!--              </div>-->
+              <avatar :id="item.user.user_id" class="ml-4" :avatar="item.user.avatar" :nickname="item.user.nickname" />
               <button class="bg-primary text-white rounded-2xl w-16 h-8 mr-4 focus:outline-none">关注</button>
             </div>
           </div>
@@ -64,10 +65,7 @@
           <div v-for="i in rankList" :key="i.id" class="rounded-xl overflow-hidden item rank mb-6">
             <div :style="{ 'background-image': 'url(' + i.cover + ')' }" class="img-bg2 bg-cover">
               <div class="flex justify-between pt-4 px-4">
-                <div class="flex ml-4">
-                  <img class="w-7 h-7 rounded-full" :src="i.user.avatar" alt="">
-                  <div class="text-white pl-2">{{ i.user.nickname }}</div>
-                </div>
+                <avatar :id="i.user.user_id" class="ml-4" :avatar="i.user.avatar" :nickname="i.user.nickname" />
                 <fd-button size="small">关注</fd-button>
               </div>
             </div>
@@ -151,13 +149,15 @@
 <script lang="ts">
 import Vue from 'vue'
 import fdButton from '@/components/FdButton.vue'
+import Avatar from '@/components/Avatar'
 import { getArtListApi, getIndexApi } from '~/api'
 import { workTypeMixin } from '~/mixins'
 import { likeApi } from '~/api/like'
 
 export default Vue.extend({
   components: {
-    fdButton
+    fdButton,
+    Avatar
   },
   mixins: [workTypeMixin],
   data () {

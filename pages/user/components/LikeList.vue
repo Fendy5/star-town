@@ -3,10 +3,7 @@
     <div v-for="item in list" :key="item.id" class="rounded-xl item overflow-hidden">
       <div :style="{ 'background-image': 'url(' + item.cover + ')' }" class="img-bg bg-cover">
         <div class="flex justify-between pt-4">
-          <div class="flex ml-4">
-            <img class="w-7 h-7 rounded-full" :src="item.user.avatar" alt="">
-            <div class="text-white pl-2">{{ item.user.nickname }}</div>
-          </div>
+          <avatar :id="item.user.user_id" class="ml-4" :avatar="item.user.avatar" :nickname="item.user.nickname" />
           <button class="bg-primary text-white rounded-2xl w-16 h-8 mr-4 focus:outline-none">关注</button>
         </div>
       </div>

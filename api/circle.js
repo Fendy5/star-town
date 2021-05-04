@@ -7,3 +7,18 @@ export function addCircle(data) {
     data
   })
 }
+
+export function getCirclesApi(params) {
+  return request({
+    url: `/api/v1/circles`,
+    method: 'get',
+    params
+  })
+}
+
+export function getCircleApi(ccId) {
+  return request({
+    url: `/api/v1/circles/${ccId}`,
+    method: 'get'
+  })
+}

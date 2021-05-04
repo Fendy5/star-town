@@ -72,7 +72,7 @@ export default {
       this.getArtList()
     },
     getArtList () {
-      getWorksApi({ type: this.tab, ...this.page }).then(val => {
+      getWorksApi({ type: this.tab + 3, ...this.page }).then(val => {
         this.artList = val.data.works
         this.total = val.data.total
         this.loading = false

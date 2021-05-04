@@ -24,7 +24,7 @@
           <div class="pl-2 text-sm">注册</div>
         </div>
         <div v-else class="flex pl-4 items-center">
-          <router-link to="/my" class="px-2 text-sm">个人中心</router-link>
+          <router-link to="/user" class="px-2 text-sm">个人中心</router-link>
           <div class="fd-w-2 h-3 bg-gray-600" />
           <div class="px-2 text-sm cursor-pointer" @click="logout">退出</div>
         </div>

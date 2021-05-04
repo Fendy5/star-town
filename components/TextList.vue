@@ -4,10 +4,7 @@
     <div v-for="i in textList" :key="i.id" class="py-6">
       <div class="mb-4 flex justify-between">
         <div class="flex w-210 items-center justify-between">
-          <div class="fx-center">
-            <img class="rounded-full w-8 h-8 mr-2" :src=" i.user.avatar" alt="">
-            <div class="mx-2">{{ i.user.nickname }}</div>
-          </div>
+          <avatar :id="i.user.user_id" :avatar="i.user.avatar" :nickname="i.user.nickname" />
           <fd-button size="small" @click="follow">关注</fd-button>
         </div>
         <div class="text-secondary">{{ i.create_time }}</div>
@@ -38,7 +35,9 @@
 </template>
 
 <script>
+import Avatar from '@/components/Avatar'
 export default {
+  components: { Avatar },
   props: {
     textList: {
       type: Array,

@@ -3,10 +3,7 @@
     <div v-for="i in artList" :key="i.id" class="art">
       <div :style="{'background-image':`url(${i.cover})`}" class="cover bg-cover rounded-2xl px-4 pt-4">
         <div class="flex justify-between">
-          <div class="flex items-center">
-            <img class="rounded-full w-8 h-8" :src="i.user?i.user.avatar:null" alt="">
-            <span class="text-white pl-2">{{ i.user?i.user.nickname:null }}</span>
-          </div>
+          <avatar :id="i.user.user_id" :avatar="i.user.avatar" :nickname="i.user.nickname" />
           <fd-button>关注</fd-button>
         </div>
       </div>
@@ -33,7 +30,10 @@
 </template>
 
 <script>
+import Avatar from '@/components/Avatar'
+
 export default {
+  components: { Avatar },
   props: {
     artList: {
       type: Array,
