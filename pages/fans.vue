@@ -7,11 +7,17 @@
         <tab title="文字星球" @changeTab="changeTextTab">
           <svg-icon v-if="loading.text" class="mx-auto" icon-class="loading" />
           <div v-else>
-            <text-list :text-list="textList" />
-            <div class="text-center">
-              <fd-button plain size="medium">
-                <NuxtLink to="/text-star">更多</NuxtLink>
-              </fd-button>
+            <div v-if="textList.length">
+              <text-list :text-list="textList" />
+              <div class="text-center">
+                <fd-button plain size="medium">
+                  <NuxtLink to="/text-star">更多</NuxtLink>
+                </fd-button>
+              </div>
+            </div>
+            <div v-else>
+              <svg-icon class="text-primary mx-auto" icon-class="empty" />
+              <p class="text-center text-2xl">空空如也</p>
             </div>
           </div>
         </tab>
@@ -21,11 +27,17 @@
         <tab :tabs="artTabs" title="艺术星球" @changeTab="changeArtTab">
           <svg-icon v-if="loading.art" class="mx-auto" icon-class="loading" />
           <div v-else>
-            <art-list :art-list="artList" />
-            <div class="text-center">
-              <fd-button plain size="medium">
-                <NuxtLink to="/art-star">更多</NuxtLink>
-              </fd-button>
+            <div v-if="artList.length">
+              <art-list :art-list="artList" />
+              <div class="text-center">
+                <fd-button plain size="medium">
+                  <NuxtLink to="/art-star">更多</NuxtLink>
+                </fd-button>
+              </div>
+            </div>
+            <div v-else>
+              <svg-icon class="text-primary mx-auto" icon-class="empty" />
+              <p class="text-center text-2xl">空空如也</p>
             </div>
           </div>
         </tab>
@@ -64,6 +76,10 @@ export default {
       },
       ccId: null,
       artList: [],
+      page: {
+        pageNo: 1,
+        pageSize: 6
+      },
       artTabs: ['漫画', '写真', '手绘'],
       textList: []
     }
@@ -84,23 +100,23 @@ export default {
       }
     },
     changeArtTab (val) {
-      this.artList = []
+      this.loading.art = true
       this.getArtList(val + 3)
     },
     changeTextTab (val) {
-      this.textList = []
+      this.loading.text = true
       this.getTextList(val)
     },
     getArtList (type) {
-      getWorksApi({ type, cc_id: this.ccId }).then(value => {
+      getWorksApi({ type, cc_id: this.ccId, ...this.page }).then(value => {
         this.artList = value.data.works
-        this.loading.text = false
+        this.loading.art = false
       })
     },
     getTextList (type) {
-      getWorksApi({ type, cc_id: this.ccId }).then(value => {
+      getWorksApi({ type, cc_id: this.ccId, ...this.page }).then(value => {
         this.textList = value.data.works
-        this.loading.art = false
+        this.loading.text = false
       })
     }
   }

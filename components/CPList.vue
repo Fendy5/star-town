@@ -15,7 +15,7 @@
           </div>
           <!--          <p>100w+个粉丝</p>-->
         </div>
-        <fd-button>加入</fd-button>
+        <!--        <fd-button>加入</fd-button>-->
       </div>
     </div>
   </div>

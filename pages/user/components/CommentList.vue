@@ -35,6 +35,10 @@
         <NuxtLink :to="`/work/${i.work?i.work.work_id:''}`">查看完整回复...</NuxtLink>
       </div>
     </div>
+    <div v-if="!commentList.length">
+      <svg-icon class="text-primary mx-auto" icon-class="empty" />
+      <p class="text-center text-2xl">空空如也</p>
+    </div>
   </div>
 </template>
 
