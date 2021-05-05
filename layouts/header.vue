@@ -13,7 +13,7 @@
       </div>
       <!--    个人信息-->
       <div class="flex justify-between items-center float-right relative top-4">
-        <router-link to="my">
+        <router-link to="/user">
           <!--          <img :src="$store.userinfo">-->
           <img v-if="user.avatar" class="w-6 h-6 rounded-full" :src="user.avatar " alt="">
           <svg-icon v-else class="w-6 h-6" icon-class="avatar" />

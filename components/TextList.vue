@@ -5,7 +5,7 @@
       <div class="mb-4 flex justify-between">
         <div class="flex w-210 items-center justify-between">
           <avatar :id="i.user.user_id" :avatar="i.user.avatar" :nickname="i.user.nickname" />
-          <fd-button size="small" @click="follow">关注</fd-button>
+          <fd-button :followed="i.followed" @click="follow(i.user.user_id)">{{ i.followed?'已关注':'关  注' }}</fd-button>
         </div>
         <div class="text-secondary">{{ i.create_time }}</div>
       </div>
@@ -36,6 +36,7 @@
 
 <script>
 import Avatar from '@/components/Avatar.vue'
+import { addFollowApi } from '@/api/fans'
 export default {
   components: { Avatar },
   props: {
@@ -48,8 +49,12 @@ export default {
     return {}
   },
   methods: {
-    follow () {
-      console.log(1233)
+    follow (id) {
+      addFollowApi({ follow_id: id }).then(val => {
+        if (val.code === 0) {
+          this.$emit('changeFollow')
+        }
+      })
     }
   }
 }

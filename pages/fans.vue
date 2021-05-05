@@ -8,7 +8,7 @@
           <svg-icon v-if="loading.text" class="mx-auto" icon-class="loading" />
           <div v-else>
             <div v-if="textList.length">
-              <text-list :text-list="textList" />
+              <text-list :text-list="textList" @changeFollow="follow" />
               <div class="text-center">
                 <fd-button plain size="medium">
                   <NuxtLink to="/text-star">更多</NuxtLink>
@@ -28,7 +28,7 @@
           <svg-icon v-if="loading.art" class="mx-auto" icon-class="loading" />
           <div v-else>
             <div v-if="artList.length">
-              <art-list :art-list="artList" />
+              <art-list :art-list="artList" @changeFollow="follow" />
               <div class="text-center">
                 <fd-button plain size="medium">
                   <NuxtLink to="/art-star">更多</NuxtLink>
@@ -86,10 +86,11 @@ export default {
   },
   mounted () {
     this.initPage()
-    this.getTextList(1)
-    this.getArtList(4)
   },
   methods: {
+    follow () {
+      this.initPage()
+    },
     initPage () {
       this.ccId = this.$route.query.cc_id
       if (this.ccId) {
@@ -98,6 +99,8 @@ export default {
           this.circle = val.data.circle
         })
       }
+      this.getTextList(1)
+      this.getArtList(4)
     },
     changeArtTab (val) {
       this.loading.art = true

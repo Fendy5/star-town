@@ -4,7 +4,7 @@
       <div :style="{'background-image':`url(${i.cover})`}" class="cover bg-cover rounded-2xl px-4 pt-4">
         <div class="flex justify-between">
           <avatar :id="i.user.user_id" :avatar="i.user.avatar" :nickname="i.user.nickname" />
-          <fd-button>关注</fd-button>
+          <fd-button :followed="i.followed" @click="follow(i.user.user_id)">{{ i.followed?'已关注':'关  注' }}</fd-button>
         </div>
       </div>
       <!--   卡片尾部-->
@@ -31,6 +31,7 @@
 
 <script>
 import Avatar from '@/components/Avatar'
+import { addFollowApi } from '@/api/fans'
 
 export default {
   components: { Avatar },
@@ -42,6 +43,15 @@ export default {
   },
   data () {
     return {}
+  },
+  methods: {
+    follow (id) {
+      addFollowApi({ follow_id: id }).then(val => {
+        if (val.code === 0) {
+          this.$emit('changeFollow')
+        }
+      })
+    }
   }
 }
 </script>

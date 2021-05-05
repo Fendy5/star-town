@@ -1,6 +1,9 @@
 <template>
   <div>
-    <button v-if="size==='small'" :disabled="disabled" :class="{'bt-primary':!plain && !none,'plain':plain}" class="fd-button py-1 px-4 flex items-center" @click="handleClick">
+    <button v-if="followed" class="py-1 px-3 bg-secondary flex items-center" @click="handleClick">
+      <slot />
+    </button>
+    <button v-else-if="size==='small'" :disabled="disabled" :class="{'bt-primary':!plain && !none,'plain':plain}" class="fd-button py-1 px-4 flex items-center" @click="handleClick">
       <slot />
     </button>
     <button v-else-if="size==='medium'" :disabled="disabled" :class="{'bt-primary':!plain && !none,'plain':plain}" class="fd-button px-12 py-3" @click="handleClick">
@@ -21,6 +24,10 @@ export default {
       default: 'small'
     },
     none: {
+      type: Boolean,
+      default: false
+    },
+    followed: {
       type: Boolean,
       default: false
     },
@@ -49,5 +56,10 @@ export default {
 }
 .fd-button {
   @apply rounded-2xl focus:outline-none
+}
+.bg-secondary {
+  background: #f3f4f6;
+  color: black;
+  @extend .fd-button
 }
 </style>

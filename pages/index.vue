@@ -2,8 +2,8 @@
   <div class="index">
     <div class="w-full bg-primary">
       <el-carousel arrow="always" :interval="4000" type="card" class="overflow-hidden" height="480px">
-        <el-carousel-item v-for="item in 3" :key="item">
-          <img class="w-full h-full rounded-xl" :src="images[0]" alt="">
+        <el-carousel-item v-for="item in bannerImages" :key="item">
+          <img class="w-full h-full rounded-xl" :src="item" alt="">
         </el-carousel-item>
       </el-carousel>
     </div>
@@ -11,7 +11,7 @@
       <!--      今天推荐的Tab-->
       <div class="flex justify-around mt-6 mb-10">
         <fd-button none size="medium" :class="{'bg-primary':tab===0}" class="rounded-full" @click="changeTab(0)">首页推荐</fd-button>
-        <fd-button none size="medium" :class="{'bg-primary':tab===1}" class="rounded-full" @click="changeTab(1)">个性推荐</fd-button>
+        <!--        <fd-button none size="medium" :class="{'bg-primary':tab===1}" class="rounded-full" @click="changeTab(1)">个性推荐</fd-button>-->
         <fd-button none size="medium" :class="{'bg-primary':tab===2}" class="rounded-full" @click="changeTab(2)">最新发布</fd-button>
       </div>
       <!--    推荐内容-->
@@ -21,13 +21,13 @@
       <div v-else class="rounded-xl star-recommended grid grid-cols-4 gap-6 place-items-end mb-8">
         <div v-for="item in homeRecommend" :key="item.id" class="rounded-xl item overflow-hidden">
           <div :style="{ 'background-image': 'url(' + item.cover + ')' }" class="img-bg bg-cover">
-            <div class="flex justify-between pt-4">
+            <div class="flex justify-between pt-4 px-4">
               <!--              <div class="flex ml-4">-->
               <!--                <img class="w-7 h-7 rounded-full" :src="item.user.avatar" alt="">-->
               <!--                <div class="text-white pl-2">{{ item.user.nickname }}</div>-->
               <!--              </div>-->
-              <avatar :id="item.user.user_id" class="ml-4" :avatar="item.user.avatar" :nickname="item.user.nickname" />
-              <button class="bg-primary text-white rounded-2xl w-16 h-8 mr-4 focus:outline-none">关注</button>
+              <avatar :id="item.user.user_id" :avatar="item.user.avatar" :nickname="item.user.nickname" />
+              <fd-button :followed="item.followed" @click="follow(item.user.user_id)">{{ item.followed?'已关注':'关  注' }}</fd-button>
             </div>
           </div>
           <div class="px-4 pb-2 bg-white">
@@ -66,7 +66,7 @@
             <div :style="{ 'background-image': 'url(' + i.cover + ')' }" class="img-bg2 bg-cover">
               <div class="flex justify-between pt-4 px-4">
                 <avatar :id="i.user.user_id" class="ml-4" :avatar="i.user.avatar" :nickname="i.user.nickname" />
-                <fd-button size="small">关注</fd-button>
+                <fd-button :followed="i.followed" @click="follow(i.user.user_id)">{{ i.followed?'已关注':'关  注' }}</fd-button>
               </div>
             </div>
             <div class="pl-4 pb-2 bg-white rounded-xl">
@@ -153,6 +153,7 @@ import Avatar from '@/components/Avatar.vue'
 import { getArtListApi, getIndexApi } from '~/api'
 import { workTypeMixin } from '~/mixins'
 import { likeApi } from '~/api/like'
+import { addFollowApi } from '~/api/fans'
 
 export default Vue.extend({
   components: {
@@ -162,6 +163,11 @@ export default Vue.extend({
   mixins: [workTypeMixin],
   data () {
     return {
+      bannerImages: [
+        'https://image.fendy5.cn/s/syUVpgo4u29WlwxG.png',
+        'https://image.fendy5.cn/s/S4g5wln8BFVykxND.png',
+        'https://image.fendy5.cn/s/xKvyoPEMjw8WCXNh.png'
+      ],
       homeRecommend: [],
       tab: 0, // 10-首页推荐，11-个性推荐，12-最新发布
       rankTab: 0,
@@ -174,12 +180,22 @@ export default Vue.extend({
     }
   },
   mounted () {
-    getIndexApi().then(val => {
-      this.homeRecommend = val.data.home_recommend
-      this.rankList = val.data.ranks
-    })
+    this.initPage()
   },
   methods: {
+    initPage () {
+      getIndexApi().then(val => {
+        this.homeRecommend = val.data.home_recommend
+        this.rankList = val.data.ranks
+      })
+    },
+    follow (id) {
+      addFollowApi({ follow_id: id }).then(val => {
+        if (val.code === 0) {
+          this.initPage()
+        }
+      })
+    },
     getRecommend () {
 
     },
@@ -189,7 +205,6 @@ export default Vue.extend({
     },
     // 切换排行榜
     changeRankTab (index: number) {
-      this.rankList = []
       getArtListApi({ type: index }).then(val => {
         this.rankList = val.data.arts
       })

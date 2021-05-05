@@ -3,9 +3,9 @@
     <div class="grid grid-cols-3 pb-6 gap-y-6">
       <div v-for="item in list" :key="item.id" class="rounded-xl item overflow-hidden">
         <div :style="{ 'background-image': 'url(' + item.cover + ')' }" class="img-bg bg-cover">
-          <div class="flex justify-between pt-4">
-            <avatar :id="item.user.user_id" class="ml-4" :avatar="item.user.avatar" :nickname="item.user.nickname" />
-            <button class="bg-primary text-white rounded-2xl w-16 h-8 mr-4 focus:outline-none">关注</button>
+          <div class="flex justify-between pt-4 px-4">
+            <avatar :id="item.user.user_id" :avatar="item.user.avatar" :nickname="item.user.nickname" />
+            <fd-button :followed="item.followed">{{ item.followed?'已关注':'关  注' }}</fd-button>
           </div>
         </div>
         <div class="px-4 pb-2 bg-white">
