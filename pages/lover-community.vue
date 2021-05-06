@@ -9,7 +9,10 @@
           <span v-if="count || count===0" class="text-base text-secondary ml-8">共{{ count }}条数据</span>
         </div>
         <svg-icon v-if="loading" icon-class="loading" class="mx-auto" />
-        <svg-icon v-else-if="count===0" class="mx-auto my-8" icon-class="empty" />
+        <div v-else-if="count===0 || cpList.length===0" class="my-8">
+          <svg-icon class="mx-auto" icon-class="empty" />
+          <p class="text-center text-2xl">空空如也</p>
+        </div>
         <c-p-list v-else :cp-list="cpList" />
       </div>
     </div>

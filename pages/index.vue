@@ -18,6 +18,10 @@
       <div v-if="loading.recommend" class="flex justify-center">
         <svg-icon icon-class="loading" />
       </div>
+      <div v-else-if="homeRecommend.length===0">
+        <svg-icon class="text-primary mx-auto" icon-class="empty" />
+        <p class="text-center text-2xl">空空如也</p>
+      </div>
       <div v-else class="rounded-xl star-recommended grid grid-cols-4 gap-6 place-items-end mb-8">
         <div v-for="item in homeRecommend" :key="item.id" class="rounded-xl item overflow-hidden">
           <div :style="{ 'background-image': 'url(' + item.cover + ')' }" class="img-bg bg-cover">
@@ -60,6 +64,10 @@
       <tab :tabs="ranks" title="排行榜" @changeTab="changeRankTab">
         <div v-if="loading.rank" class="flex justify-center">
           <svg-icon icon-class="loading" />
+        </div>
+        <div v-else-if="rankList.length===0" class="py-8">
+          <svg-icon class="text-primary mx-auto" icon-class="empty" />
+          <p class="text-center text-2xl">空空如也</p>
         </div>
         <div v-else class="mt-12 pb-16 rounded-xl star-recommended flex justify-between flex-wrap">
           <div v-for="i in rankList" :key="i.id" class="rounded-xl overflow-hidden item rank mb-6">
