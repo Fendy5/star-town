@@ -13,11 +13,9 @@
       </div>
       <!--    个人信息-->
       <div class="flex justify-between items-center float-right relative top-4">
-        <router-link to="/user">
-          <!--          <img :src="$store.userinfo">-->
-          <img v-if="user.avatar" class="w-6 h-6 rounded-full" :src="user.avatar " alt="">
-          <svg-icon v-else class="w-6 h-6" icon-class="avatar" />
-        </router-link>
+        <!--          <img :src="$store.userinfo">-->
+        <img v-if="user.avatar" class="w-6 h-6 rounded-full" :src="user.avatar " alt="">
+        <svg-icon v-else class="w-6 h-6" icon-class="avatar" />
         <div v-if="!user.avatar" class="flex pl-4 items-center cursor-pointer" @click="showLogin">
           <div class="px-2 text-sm">登录</div>
           <div class="fd-w-2 h-3 bg-gray-600" />

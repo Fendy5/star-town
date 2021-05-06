@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="flex justify-between">
-      <div class="text-3xl">{{ title }}</div>
+      <div class="text-3xl">
+        {{ title }}
+        <span v-if="count || count===0" class="text-secondary text-base ml-8">共{{ count }}条结果</span>
+      </div>
       <fd-button v-if="showHot" plain>
         <span>按热度</span>
         <svg-icon icon-class="transfer" class="w-4 h-4 mr-1" />
@@ -21,6 +24,10 @@ export default {
     FdButton
   },
   props: {
+    count: {
+      type: Number,
+      default: null
+    },
     showHot: {
       type: Boolean,
       default: false

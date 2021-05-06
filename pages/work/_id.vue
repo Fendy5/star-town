@@ -16,7 +16,7 @@
               <img class="w-7 h-7 rounded-full" :src="work.avatar" alt="">
               <div class="pl-2">{{ work.nickname }}</div>
             </div>
-            <fd-button size="small">关注</fd-button>
+            <fd-button :followed="work.followed" @click="follow(work.user_id)">{{ work.followed?'已关注':'关  注' }}</fd-button>
           </div>
           <!--          标题-->
           <h3 class="text-2xl font-medium">{{ work.title }}</h3>
@@ -102,6 +102,7 @@
 import { getWorkApi } from '@/api/work'
 import { commentApi, deleteCommentApi, getCommentsApi } from '@/api/comment'
 import { mapState } from 'vuex'
+import { addFollowApi } from '@/api/fans'
 
 export default {
   data () {
@@ -127,6 +128,17 @@ export default {
     this.getComments()
   },
   methods: {
+    follow (id) {
+      addFollowApi({ follow_id: id }).then(val => {
+        if (val.code === 0) {
+          getWorkApi(this.$route.params.id).then(value => {
+            this.work = value.data.work
+            this.likes = value.data.likes
+            this.commentCount = value.data.comments_count
+          })
+        }
+      })
+    },
     deleteComment (id) {
       deleteCommentApi(id).then(_ => {
         this.getComments()

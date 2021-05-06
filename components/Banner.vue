@@ -1,13 +1,13 @@
 <template>
-  <div :style="{background:`url(${bg}) no-repeat 50% 50%`}" class="bg-banner">
-    <div class="h-80 w-full flex justify-center items-center relative">
+  <div :style="{background:`url(${bg}) no-repeat 50% 50%`}" class="bg-banner w-full min-w-1280">
+    <div class="h-80 flex justify-center items-center relative">
       <!--    标题-->
       <div class="relative title text-3xl">
         <p>{{ title.en }}</p>
         <p>{{ title.zh }}</p>
       </div>
-      <input class="search rounded-full px-7  focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="迪迦和哥尔赞合集" type="text">
-      <svg-icon icon-class="search" class="search-icon relative right-12 cursor-pointer" />
+      <input v-model="keywords" class="search rounded-full px-7  focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="赵丽颖和黄晓明" type="text">
+      <svg-icon icon-class="search" class="search-icon relative right-12 cursor-pointer" @click="search" />
     </div>
   </div>
 </template>
@@ -25,7 +25,14 @@ export default {
     }
   },
   data () {
-    return {}
+    return {
+      keywords: null
+    }
+  },
+  methods: {
+    search () {
+      this.$emit('search', this.keywords)
+    }
   }
 }
 </script>

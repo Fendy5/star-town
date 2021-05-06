@@ -78,7 +78,7 @@
                 <!--   评论、喜欢-->
                 <div class="flex">
                   <!--   喜欢-->
-                  <div class="flex items-center pr-2 cursor-pointer">
+                  <div class="flex items-center pr-2 cursor-pointer" @click="like(i.id)">
                     <svg-icon icon-class="like" class="w-4 h-4 mr-1" />
                     <div class="">{{ i.likes }}</div>
                   </div>

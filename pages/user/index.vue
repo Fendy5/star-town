@@ -103,7 +103,7 @@ import AvatarList from '@/pages/user/components/AvatarList'
 import { addCircle } from '@/api/circle'
 import { getMyCommentApi, getMyCreate, getMyFansApi, getMyFollowApi, getMyLikeApi, getUserCenterApi } from '@/api/user'
 export default {
-  middleware: 'auth',
+  // middleware: 'auth',
   components: {
     LikeList,
     AvatarList,

@@ -1,10 +1,10 @@
 <template>
   <div>
-    <banner :title="bannerTitle" bg="https://image.fendy5.cn/s/ObrG13kHn8RBIFjd.png" />
+    <banner :title="bannerTitle" bg="https://image.fendy5.cn/s/ObrG13kHn8RBIFjd.png" @search="handleSearch" />
     <div class="fd-container">
       <!--      文字星球-->
       <div class="tab-panel">
-        <tab title="文字星球" @changeTab="changeTextTab">
+        <tab title="文字星球" :count="text_count" @changeTab="changeTextTab">
           <svg-icon v-if="loading.text" class="mx-auto" icon-class="loading" />
           <div v-else>
             <div v-if="textList.length">
@@ -22,7 +22,7 @@
       </div>
       <!--      艺术星球-->
       <div class="tab-panel">
-        <tab :tabs="artTabs" title="艺术星球" @changeTab="changeArtTab">
+        <tab :count="art_count" :tabs="artTabs" title="艺术星球" @changeTab="changeArtTab">
           <svg-icon v-if="loading.art" class="mx-auto" icon-class="loading" />
           <div v-else>
             <div v-if="artList.length">
@@ -61,6 +61,8 @@ export default {
   },
   data () {
     return {
+      text_count: null,
+      art_count: null,
       tabIndex: {
         text: 1,
         art: 1
@@ -76,6 +78,7 @@ export default {
       },
       ccId: null,
       artList: [],
+      keywords: null,
       page: {
         pageNo: 1,
         pageSize: 6
@@ -88,6 +91,12 @@ export default {
     this.initPage()
   },
   methods: {
+    handleSearch (value) {
+      this.keywords = value
+      this.loading.art = true
+      this.loading.text = true
+      this.initPage()
+    },
     goArtStar () {
       this.$router.push('art-star')
     },
@@ -120,14 +129,16 @@ export default {
       this.getTextList(val)
     },
     getArtList (type) {
-      getWorksApi({ type, cc_id: this.ccId, ...this.page }).then(value => {
+      getWorksApi({ type, cc_id: this.ccId, ...this.page, keywords: this.keywords }).then(value => {
         this.artList = value.data.works
+        this.art_count = value.data.art_count
         this.loading.art = false
       })
     },
     getTextList (type) {
-      getWorksApi({ type, cc_id: this.ccId, ...this.page }).then(value => {
+      getWorksApi({ type, cc_id: this.ccId, ...this.page, keywords: this.keywords }).then(value => {
         this.textList = value.data.works
+        this.text_count = value.data.text_count
         this.loading.text = false
       })
     }
