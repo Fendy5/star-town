@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-4 pb-6">
+  <div class="grid grid-cols-4 gap-4 pb-6">
     <div v-for="i in artList" :key="i.id" class="art">
       <div :style="{'background-image':`url(${i.cover})`}" class="cover bg-cover rounded-2xl px-4 pt-4">
         <div class="flex justify-between">

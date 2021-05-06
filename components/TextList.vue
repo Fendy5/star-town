@@ -10,7 +10,7 @@
         <div class="text-secondary">{{ i.create_time }}</div>
       </div>
       <div class="flex">
-        <img src="https://image.fendy5.cn/s/0Spf8H63eqwZOOFg.png" alt="">
+        <img class="w-52 h-32 object-cover rounded-2xl" :src="i.cover" alt="">
         <div class="pl-8 w-full flex flex-col justify-between">
           <div>
             <router-link :to="`/work/${i.id}`" class="text-xl font-medium pb-4">{{ i.title }}</router-link>

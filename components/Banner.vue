@@ -6,7 +6,7 @@
         <p>{{ title.en }}</p>
         <p>{{ title.zh }}</p>
       </div>
-      <input v-model="keywords" class="search rounded-full px-7  focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="赵丽颖和黄晓明" type="text">
+      <input v-model="keywords" class="search rounded-full px-7  focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="唐艺昕和张若昀" type="text">
       <svg-icon icon-class="search" class="search-icon relative right-12 cursor-pointer" @click="search" />
     </div>
   </div>

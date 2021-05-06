@@ -2,10 +2,10 @@
   <div class="fd-container bg-white rounded">
     <div class="editor-container">
       <div class="mt-16 text-center pt-8">
-        <input v-model="form.title" class="w-1/2 py-3 px-5 border-1 border-purple-400 rounded" placeholder="请输入标题" type="text">
+        <input v-model="form.title" class="w-1/2 py-3 px-5 border-1 border-purple-400 rounded border" placeholder="请输入标题" type="text">
       </div>
       <div class="pt-8 text-center">
-        <el-select v-model="form.type" class="w-1/2 border-1 border-purple-400 rounded" placeholder="请选择">
+        <el-select v-model="form.type" class="w-1/2 border-1 border-purple-400 rounded border" placeholder="请选择发布的类型">
           <el-option-group
             v-for="group in options"
             :key="group.label"
@@ -21,7 +21,7 @@
         </el-select>
       </div>
       <div class="mt-8 text-center">
-        <input v-model="form.desc" class="w-full py-3 px-5 border-1 border-purple-400 rounded" placeholder="简介" type="text">
+        <input v-model="form.desc" class="w-full py-3 px-5 border-1 border-purple-400 rounded border" placeholder="简介" type="text">
       </div>
       <div class="mt-8 mb-8 pb-16">
         <div class="editor">
@@ -244,26 +244,7 @@ export default {
   mounted () {
     this.editor = new Editor({
       content: `
-          <h2>
-            Hi there,
-          </h2>
-          <p>
-            this is a very <em>basic</em> example of tiptap.
-          </p>
-          <pre><code>body { display: none; }</code></pre>
-          <ul>
-            <li>
-              A regular list
-            </li>
-            <li>
-              With regular items
-            </li>
-          </ul>
-          <blockquote>
-            It's amazing 👏
-            <br />
-            – mom
-          </blockquote>
+          <p>写点什么叭~</p>
         `,
       onUpdate: ({ getHTML }) => {
         // get new content on update
