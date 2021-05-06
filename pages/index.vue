@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-    <div class="w-full bg-primary">
+    <div class="w-full min-w-1280 bg-primary">
       <el-carousel arrow="always" :interval="4000" type="card" class="overflow-hidden" height="480px">
         <el-carousel-item v-for="item in bannerImages" :key="item">
           <img class="w-full h-full rounded-xl" :src="item" alt="">
@@ -15,7 +15,7 @@
         <fd-button none size="medium" :class="{'bg-primary':tab===2}" class="rounded-full" @click="changeTab(2)">最新发布</fd-button>
       </div>
       <!--    推荐内容-->
-      <div v-if="homeRecommend.length===0" class="flex justify-center">
+      <div v-if="loading.recommend" class="flex justify-center">
         <svg-icon icon-class="loading" />
       </div>
       <div v-else class="rounded-xl star-recommended grid grid-cols-4 gap-6 place-items-end mb-8">
@@ -58,10 +58,10 @@
 
       <!--      排行榜-->
       <tab :tabs="ranks" title="排行榜" @changeTab="changeRankTab">
-        <div v-if="rankList.length===0" class="flex justify-center">
+        <div v-if="loading.rank" class="flex justify-center">
           <svg-icon icon-class="loading" />
         </div>
-        <div v-else class="mt-12 pb-40 rounded-xl star-recommended flex justify-between flex-wrap">
+        <div v-else class="mt-12 pb-16 rounded-xl star-recommended flex justify-between flex-wrap">
           <div v-for="i in rankList" :key="i.id" class="rounded-xl overflow-hidden item rank mb-6">
             <div :style="{ 'background-image': 'url(' + i.cover + ')' }" class="img-bg2 bg-cover">
               <div class="flex justify-between pt-4 px-4">
@@ -95,53 +95,6 @@
           </div>
         </div>
       </tab>
-      <!--      &lt;!&ndash;      排行榜文字标签&ndash;&gt;-->
-      <!--      <div class="mt-24 text-2xl border-b-4 border-black pb-4 inline-block mb-8">排行榜</div>-->
-      <!--      &lt;!&ndash;      排行榜的Tab&ndash;&gt;-->
-      <!--      <div class="flex justify-around">-->
-      <!--        <div :class="{'active':rankTab===0}" class="fd-button" @click="changeRankTab(0)">视频榜</div>-->
-      <!--        <div :class="{'active':rankTab===1}" class="fd-button" @click="changeRankTab(1)">文字榜</div>-->
-      <!--        <div :class="{'active':rankTab===2}" class="fd-button" @click="changeRankTab(2)">艺术榜</div>-->
-      <!--        <div :class="{'active':rankTab===3}" class="fd-button" @click="changeRankTab(3)">好物榜</div>-->
-      <!--      </div>-->
-      <!--      &lt;!&ndash;      排行榜的内容&ndash;&gt;-->
-      <!--      &lt;!&ndash;        图片部分内容&ndash;&gt;-->
-      <!--      <div class="mt-12 pb-40 rounded-xl star-recommended flex justify-between flex-wrap">-->
-      <!--        <div v-for="item in 3" :key="item" class="rounded-2xl item mb-6">-->
-      <!--          <div :style="{ 'background-image': 'url(' + images[1] + ')' }" class="img-bg2">-->
-      <!--            <div class="flex justify-between pt-4 px-4">-->
-      <!--              <div class="flex ml-4">-->
-      <!--                <img class="w-7 h-7 rounded-full" src="https://image.fendy5.cn/s/EJ34YcPTIMsg7RwX.png" alt="">-->
-      <!--                <div class="text-white pl-2">昵称</div>-->
-      <!--              </div>-->
-      <!--              <fd-button size="small">关注</fd-button>-->
-      <!--            </div>-->
-      <!--          </div>-->
-      <!--          <div class="pl-4 pb-2 bg-white rounded-xl">-->
-      <!--            <div class="py-2 text-black cursor-pointer">主题主题主题主题主题主题...</div>-->
-      <!--            &lt;!&ndash;   文字文章&ndash;&gt;-->
-      <!--            <p class="text-secondary pb-2">文字-文章</p>-->
-      <!--            &lt;!&ndash;   页眉&ndash;&gt;-->
-      <!--            <div class="flex justify-between">-->
-      <!--              &lt;!&ndash;   评论、喜欢&ndash;&gt;-->
-      <!--              <div class="flex">-->
-      <!--                &lt;!&ndash;   喜欢&ndash;&gt;-->
-      <!--                <div class="flex items-center pr-2 cursor-pointer">-->
-      <!--                  <svg-icon icon-class="like" class="w-4 h-4 mr-1" />-->
-      <!--                  <div class="">100+</div>-->
-      <!--                </div>-->
-      <!--                &lt;!&ndash;  评论&ndash;&gt;-->
-      <!--                <div class="flex items-center cursor-pointer">-->
-      <!--                  <svg-icon icon-class="comment" class="w-4 h-4 mr-1" />-->
-      <!--                  <div class="">100+</div>-->
-      <!--                </div>-->
-      <!--              </div>-->
-      <!--              &lt;!&ndash;   时间&ndash;&gt;-->
-      <!--              <div class="text-secondary pr-4">21-03-16 22:23</div>-->
-      <!--            </div>-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
     </div>
   </div>
 </template>
@@ -150,10 +103,10 @@
 import Vue from 'vue'
 import fdButton from '@/components/FdButton.vue'
 import Avatar from '@/components/Avatar.vue'
-import { getArtListApi, getIndexApi } from '~/api'
+import { getArtListApi, getIndexApi, getRecommendApi } from '~/api'
 import { workTypeMixin } from '~/mixins'
 import { likeApi } from '~/api/like'
-import { addFollowApi } from '~/api/fans'
+import { addFollowApi, getWorksApi } from '~/api/fans'
 
 export default Vue.extend({
   components: {
@@ -163,6 +116,10 @@ export default Vue.extend({
   mixins: [workTypeMixin],
   data () {
     return {
+      loading: {
+        recommend: true,
+        rank: true
+      },
       bannerImages: [
         'https://image.fendy5.cn/s/syUVpgo4u29WlwxG.png',
         'https://image.fendy5.cn/s/S4g5wln8BFVykxND.png',
@@ -172,11 +129,7 @@ export default Vue.extend({
       tab: 0, // 10-首页推荐，11-个性推荐，12-最新发布
       rankTab: 0,
       rankList: [],
-      ranks: ['文字榜单', '艺术榜单'],
-      images: [
-        'https://image.fendy5.cn/s/PyFHOprAVGQJOD06.png',
-        'https://image.fendy5.cn/s/u7CG5B8qQUIoY2Wf.png'
-      ]
+      ranks: ['文字榜单', '艺术榜单']
     }
   },
   mounted () {
@@ -187,17 +140,17 @@ export default Vue.extend({
       getIndexApi().then(val => {
         this.homeRecommend = val.data.home_recommend
         this.rankList = val.data.ranks
+        this.loading.rank = false
+        this.loading.recommend = false
       })
     },
-    follow (id) {
-      addFollowApi({ follow_id: id }).then(val => {
+    follow (id:number) {
+      addFollowApi({ follow_id: id }).then((val:any) => {
         if (val.code === 0) {
-          this.initPage()
+          this.getArtList()
+          this.tab === 0 ? this.getRecommend() : this.getNewestWorks()
         }
       })
-    },
-    getRecommend () {
-
     },
     // 点赞
     like (workId: number) {
@@ -205,13 +158,33 @@ export default Vue.extend({
     },
     // 切换排行榜
     changeRankTab (index: number) {
-      getArtListApi({ type: index }).then(val => {
+      this.rankTab = index
+      this.loading.rank = true
+      this.getArtList()
+    },
+    getArtList () {
+      getArtListApi({ type: this.rankTab }).then(val => {
         this.rankList = val.data.arts
+        this.loading.rank = false
       })
     },
     // 切换推荐
     changeTab (index: number) {
       this.tab = index
+      this.loading.recommend = true
+      index === 0 ? this.getRecommend() : this.getNewestWorks()
+    },
+    getRecommend () {
+      getRecommendApi().then(val => {
+        this.homeRecommend = val.data.works
+        this.loading.recommend = false
+      })
+    },
+    getNewestWorks () {
+      getWorksApi({ type: 0, pageSize: 8, pageNo: 1 }).then(val => {
+        this.homeRecommend = val.data.works
+        this.loading.recommend = false
+      })
     }
   }
 })

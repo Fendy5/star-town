@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-white pt-20">
+  <footer class="bg-white min-w-1280 pt-20">
     <!--    网站相关、传送门-->
     <div class="fd-container grid grid-cols-4">
       <!--      网站相关-->

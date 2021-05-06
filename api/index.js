@@ -16,3 +16,10 @@ export function getArtListApi(params) {
     params
   })
 }
+
+export function getRecommendApi() {
+  return request({
+    url: `/api/v1/get_recommend`,
+    method: 'get'
+  })
+}

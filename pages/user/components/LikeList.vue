@@ -5,7 +5,7 @@
         <div :style="{ 'background-image': 'url(' + item.cover + ')' }" class="img-bg bg-cover">
           <div class="flex justify-between pt-4 px-4">
             <avatar :id="item.user.user_id" :avatar="item.user.avatar" :nickname="item.user.nickname" />
-            <fd-button :followed="item.followed">{{ item.followed?'已关注':'关  注' }}</fd-button>
+            <fd-button :followed="item.followed" @click="follow(item.user.user_id)">{{ item.followed?'已关注':'关  注' }}</fd-button>
           </div>
         </div>
         <div class="px-4 pb-2 bg-white">
@@ -42,6 +42,7 @@
 
 <script>
 import { workTypeMixin } from '@/mixins'
+import { addFollowApi } from '@/api/fans'
 
 export default {
   name: 'LikeList',
@@ -54,6 +55,15 @@ export default {
   },
   data () {
     return {}
+  },
+  methods: {
+    follow (id) {
+      addFollowApi({ follow_id: id }).then(val => {
+        if (val.code === 0) {
+          this.$emit('changeFollow')
+        }
+      })
+    }
   }
 }
 </script>

@@ -10,9 +10,7 @@
             <div v-if="textList.length">
               <text-list :text-list="textList" @changeFollow="follow" />
               <div class="text-center">
-                <fd-button plain size="medium">
-                  <NuxtLink to="/text-star">更多</NuxtLink>
-                </fd-button>
+                <fd-button plain size="medium" @click="goTextStar">更多</fd-button>
               </div>
             </div>
             <div v-else>
@@ -30,9 +28,7 @@
             <div v-if="artList.length">
               <art-list :art-list="artList" @changeFollow="follow" />
               <div class="text-center">
-                <fd-button plain size="medium">
-                  <NuxtLink to="/art-star">更多</NuxtLink>
-                </fd-button>
+                <fd-button plain size="medium" @click="goArtStar">更多</fd-button>
               </div>
             </div>
             <div v-else>
@@ -65,6 +61,10 @@ export default {
   },
   data () {
     return {
+      tabIndex: {
+        text: 1,
+        art: 1
+      },
       loading: {
         text: true,
         art: true
@@ -88,8 +88,15 @@ export default {
     this.initPage()
   },
   methods: {
+    goArtStar () {
+      this.$router.push('art-star')
+    },
+    goTextStar () {
+      this.$router.push('text-star')
+    },
     follow () {
-      this.initPage()
+      this.getTextList(this.tabIndex.text)
+      this.getArtList(this.tabIndex.art)
     },
     initPage () {
       this.ccId = this.$route.query.cc_id
@@ -104,10 +111,12 @@ export default {
     },
     changeArtTab (val) {
       this.loading.art = true
+      this.tabIndex.art = val + 3
       this.getArtList(val + 3)
     },
     changeTextTab (val) {
       this.loading.text = true
+      this.tabIndex.text = val
       this.getTextList(val)
     },
     getArtList (type) {

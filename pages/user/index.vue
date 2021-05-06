@@ -30,18 +30,18 @@
         <div v-if="tab===0" class="fx-content-between pb-6">
           <div v-if="!userId" class="text-xl">我点赞的</div>
           <div v-else class="text-xl">Ta点赞的</div>
-          <fd-button plain>
-            <span>按热度</span>
-            <svg-icon icon-class="transfer" class="w-4 h-4 mr-1" />
-          </fd-button>
+          <!--          <fd-button plain>-->
+          <!--            <span>按热度</span>-->
+          <!--            <svg-icon icon-class="transfer" class="w-4 h-4 mr-1" />-->
+          <!--          </fd-button>-->
         </div>
         <div v-else-if="tab===1" class="fx-content-between pb-6">
           <div v-if="!userId" class="text-xl">我评论的</div>
           <div v-else class="text-xl">Ta评论的</div>
-          <fd-button plain>
-            <span>按热度</span>
-            <svg-icon icon-class="transfer" class="w-4 h-4 mr-1" />
-          </fd-button>
+          <!--          <fd-button plain>-->
+          <!--            <span>按热度</span>-->
+          <!--            <svg-icon icon-class="transfer" class="w-4 h-4 mr-1" />-->
+          <!--          </fd-button>-->
         </div>
         <div v-else-if="tab===2" class="fx-content-between pb-6">
           <div class="fx-items-center">
@@ -58,10 +58,10 @@
               </div>
             </div>
           </div>
-          <fd-button plain>
-            <span>按热度</span>
-            <svg-icon icon-class="transfer" class="w-4 h-4 mr-1" />
-          </fd-button>
+          <!--          <fd-button plain>-->
+          <!--            <span>按热度</span>-->
+          <!--            <svg-icon icon-class="transfer" class="w-4 h-4 mr-1" />-->
+          <!--          </fd-button>-->
         </div>
         <div v-else-if="tab===3" class="fx-content-between pb-6">
           <div v-if="!userId" class="text-xl">我关注的</div>
@@ -73,11 +73,11 @@
         </div>
 
         <svg-icon v-if="loading" class="mx-auto" icon-class="loading" />
-        <like-list v-if="tab===0 && !loading" :list="likeList" />
+        <like-list v-if="tab===0 && !loading" :list="likeList" @changeFollow="follow" />
         <comment-list v-else-if="tab===1 && !loading" :comment-list="commentList" />
         <avatar-list v-else-if="tab===3 && !loading" :list="follows" />
         <avatar-list v-else-if="tab===4 && !loading" :list="fans" />
-        <like-list v-else-if="!loading" :list="createList" />
+        <like-list v-else-if="!loading" :list="createList" @changeFollow="getMyCreate" />
       </div>
     </div>
     <div :style="{display:dialog}" class="login rounded-2xl px-11 pb-14">
@@ -152,6 +152,9 @@ export default {
           create: this.user.works_count
         }
       })
+      this.getMyLike()
+    },
+    follow () {
       this.getMyLike()
     },
     getMyCreate () {

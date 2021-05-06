@@ -9,20 +9,20 @@
     <div class="fd-container relative -top-12 bg-white rounded-2xl">
       <!--      按热度、时间排序的按钮-->
       <div class="flex justify-end pt-6 pr-6">
-        <div class="flex">
-          <fd-button plain>
-            <span>按热度</span>
-            <svg-icon icon-class="transfer" class="w-4 h-4 mr-1" />
-          </fd-button>
-          <fd-button class="pl-2" plain>
-            <span>按时间</span>
-            <svg-icon icon-class="transfer" class="w-4 h-4 mr-1" />
-          </fd-button>
-        </div>
+        <!--        <div class="flex">-->
+        <!--          <fd-button plain>-->
+        <!--            <span>按热度</span>-->
+        <!--            <svg-icon icon-class="transfer" class="w-4 h-4 mr-1" />-->
+        <!--          </fd-button>-->
+        <!--          <fd-button class="pl-2" plain>-->
+        <!--            <span>按时间</span>-->
+        <!--            <svg-icon icon-class="transfer" class="w-4 h-4 mr-1" />-->
+        <!--          </fd-button>-->
+        <!--        </div>-->
       </div>
       <tab :tabs="artTabs" @changeTab="changeTab">
         <svg-icon v-if="loading" class="mx-auto" icon-class="loading" />
-        <art-list v-else :art-list="artList" />
+        <art-list v-else :art-list="artList" @changeFollow="getArtList" />
         <div class="py-8">
           <el-pagination
             class="text-center"

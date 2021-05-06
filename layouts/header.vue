@@ -109,6 +109,7 @@ export default {
         type: 'warning'
       }).then(() => {
         this.$store.dispatch('logout')
+        this.$router.go(0)
       })
     },
     // 登录
@@ -118,6 +119,7 @@ export default {
           this.$store.dispatch('loginSuccessSetToken', val.data.token).then(() => {
             this.$store.dispatch('getInfo').then(() => {
               this.closeLogin()
+              this.$router.go(0)
             })
           })
         }
