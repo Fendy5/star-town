@@ -145,26 +145,28 @@ export default {
   },
   methods: {
     likeCreate (workId, index) {
-      const hasLike = this.createList[index].has_like
-      if (hasLike) {
-        this.createList[index].has_like = false
-        this.createList[index].likes -= 1
-      } else {
-        this.createList[index].has_like = true
-        this.createList[index].likes += 1
-      }
-      likeApi({ work_id: workId })
+      likeApi({ work_id: workId }).then(_ => {
+        const hasLike = this.createList[index].has_like
+        if (hasLike) {
+          this.createList[index].has_like = false
+          this.createList[index].likes -= 1
+        } else {
+          this.createList[index].has_like = true
+          this.createList[index].likes += 1
+        }
+      })
     },
     myLike (workId, index) {
-      const hasLike = this.likeList[index].has_like
-      if (hasLike) {
-        this.likeList[index].has_like = false
-        this.likeList[index].likes -= 1
-      } else {
-        this.likeList[index].has_like = true
-        this.likeList[index].likes += 1
-      }
-      likeApi({ work_id: workId })
+      likeApi({ work_id: workId }).then(_ => {
+        const hasLike = this.likeList[index].has_like
+        if (hasLike) {
+          this.likeList[index].has_like = false
+          this.likeList[index].likes -= 1
+        } else {
+          this.likeList[index].has_like = true
+          this.likeList[index].likes += 1
+        }
+      })
     },
     initPage () {
       getUserCenterApi({ id: this.userId }).then(value => {

@@ -22,7 +22,7 @@
       </div>
       <tab :tabs="artTabs" @changeTab="changeTab">
         <svg-icon v-if="loading" class="mx-auto" icon-class="loading" />
-        <art-list v-else :art-list="artList" @changeFollow="getArtList" />
+        <art-list v-else :art-list="artList" @like="likeArt" @changeFollow="getArtList" />
         <div class="py-8">
           <el-pagination
             class="text-center"
@@ -39,6 +39,7 @@
 <script>
 import ArtList from '@/components/ArtList'
 import { getWorksApi } from '@/api/fans'
+import { likeApi } from '@/api/like'
 export default {
   components: {
     ArtList
@@ -60,6 +61,18 @@ export default {
     this.getArtList()
   },
   methods: {
+    likeArt (workId, index) {
+      likeApi({ work_id: workId }).then(_ => {
+        const hasLike = this.artList[index].has_like
+        if (hasLike) {
+          this.artList[index].has_like = false
+          this.artList[index].likes -= 1
+        } else {
+          this.artList[index].has_like = true
+          this.artList[index].likes += 1
+        }
+      })
+    },
     changeTab (val) {
       this.loading = true
       this.tab = val

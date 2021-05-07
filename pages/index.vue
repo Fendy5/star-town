@@ -156,27 +156,29 @@ export default Vue.extend({
     },
     // 点赞（推荐榜）
     recommendRank (workId, index) {
-      const hasLike = this.homeRecommend[index].has_like
-      if (hasLike) {
-        this.homeRecommend[index].has_like = false
-        this.homeRecommend[index].likes -= 1
-      } else {
-        this.homeRecommend[index].has_like = true
-        this.homeRecommend[index].likes += 1
-      }
-      likeApi({ work_id: workId })
+      likeApi({ work_id: workId }).then(_ => {
+        const hasLike = this.homeRecommend[index].has_like
+        if (hasLike) {
+          this.homeRecommend[index].has_like = false
+          this.homeRecommend[index].likes -= 1
+        } else {
+          this.homeRecommend[index].has_like = true
+          this.homeRecommend[index].likes += 1
+        }
+      })
     },
     // 点赞（排行榜）
     likeRank (workId, index) {
-      const hasLike = this.rankList[index].has_like
-      if (hasLike) {
-        this.rankList[index].has_like = false
-        this.rankList[index].likes -= 1
-      } else {
-        this.rankList[index].has_like = true
-        this.rankList[index].likes += 1
-      }
-      likeApi({ work_id: workId })
+      likeApi({ work_id: workId }).then(_ => {
+        const hasLike = this.rankList[index].has_like
+        if (hasLike) {
+          this.rankList[index].has_like = false
+          this.rankList[index].likes -= 1
+        } else {
+          this.rankList[index].has_like = true
+          this.rankList[index].likes += 1
+        }
+      })
     },
     // 切换排行榜
     changeRankTab (index) {

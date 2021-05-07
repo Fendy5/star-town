@@ -93,15 +93,16 @@ export default {
   },
   methods: {
     likeArt (workId, index) {
-      const hasLike = this.artList[index].has_like
-      if (hasLike) {
-        this.artList[index].has_like = false
-        this.artList[index].likes -= 1
-      } else {
-        this.artList[index].has_like = true
-        this.artList[index].likes += 1
-      }
-      likeApi({ work_id: workId })
+      likeApi({ work_id: workId }).then(_ => {
+        const hasLike = this.artList[index].has_like
+        if (hasLike) {
+          this.artList[index].has_like = false
+          this.artList[index].likes -= 1
+        } else {
+          this.artList[index].has_like = true
+          this.artList[index].likes += 1
+        }
+      })
     },
     handleSearch (value) {
       this.keywords = value

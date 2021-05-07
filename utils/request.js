@@ -6,7 +6,7 @@ const service = axios.create({
   // baseURL: '/dev-api', // url = base url + request url
   baseURL: process.env.BASE_URL, // url = base url + request url
   withCredentials: true, // send cookies when cross-domain requests
-  timeout: 30000 // request timeout
+  timeout: 600000 // request timeout
 })
 
 // 在axios拦截器中检测是否用token，如果存在token就在请求头添加Authorization
@@ -36,6 +36,7 @@ service.interceptors.response.use(
       Message.success(res.message)
     } else if (res.code === 1) {
       Message.error(res.message)
+      return Promise.reject(res)
     }
     return res
   },
