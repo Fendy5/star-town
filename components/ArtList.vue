@@ -1,11 +1,10 @@
 <template>
   <div class="grid grid-cols-4 gap-4 pb-6">
-    <div v-for="i in artList" :key="i.id" class="art">
-      <div :style="{'background-image':`url(${i.cover})`}" class="cover bg-cover rounded-2xl px-4 pt-4">
-        <div class="flex justify-between">
-          <avatar :id="i.user.user_id" :avatar="i.user.avatar" :nickname="i.user.nickname" />
-          <fd-button :followed="i.followed" @click="follow(i.user.user_id)">{{ i.followed?'已关注':'关  注' }}</fd-button>
-        </div>
+    <div v-for="i in artList" :key="i.id" class="art relative">
+      <div :style="{'background-image':`url(${i.cover})`}" class="cover bg-cover rounded-2xl px-4 pt-4" />
+      <div class="flex justify-between w-full absolute top-4 px-4">
+        <avatar :id="i.user.user_id" :avatar="i.user.avatar" :nickname="i.user.nickname" />
+        <fd-button :followed="i.followed" @click="follow(i.user.user_id)">{{ i.followed?'已关注':'关  注' }}</fd-button>
       </div>
       <!--   卡片尾部-->
       <div class="flex justify-between pt-2 px-2">
@@ -62,5 +61,6 @@ export default {
 .cover {
   width: 274px;
   height: 234px;
+  filter: brightness(0.5);
 }
 </style>

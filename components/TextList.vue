@@ -4,7 +4,7 @@
     <div v-for="i in textList" :key="i.id" class="py-6">
       <div class="mb-4 flex justify-between">
         <div class="flex w-210 items-center justify-between">
-          <avatar :id="i.user.user_id" :avatar="i.user.avatar" :nickname="i.user.nickname" />
+          <avatar :id="i.user.user_id" color="black" :avatar="i.user.avatar" :nickname="i.user.nickname" />
           <fd-button :followed="i.followed" @click="follow(i.user.user_id)">{{ i.followed?'已关注':'关  注' }}</fd-button>
         </div>
         <div class="text-secondary">{{ i.create_time }}</div>

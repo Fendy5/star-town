@@ -23,16 +23,11 @@
         <p class="text-center text-2xl">空空如也</p>
       </div>
       <div v-else class="rounded-xl star-recommended grid grid-cols-4 gap-6 place-items-end mb-8">
-        <div v-for="item in homeRecommend" :key="item.id" class="rounded-xl item overflow-hidden">
-          <div :style="{ 'background-image': 'url(' + item.cover + ')' }" class="img-bg bg-cover">
-            <div class="flex justify-between pt-4 px-4">
-              <!--              <div class="flex ml-4">-->
-              <!--                <img class="w-7 h-7 rounded-full" :src="item.user.avatar" alt="">-->
-              <!--                <div class="text-white pl-2">{{ item.user.nickname }}</div>-->
-              <!--              </div>-->
-              <avatar :id="item.user.user_id" :avatar="item.user.avatar" :nickname="item.user.nickname" />
-              <fd-button :followed="item.followed" @click="follow(item.user.user_id)">{{ item.followed?'已关注':'关  注' }}</fd-button>
-            </div>
+        <div v-for="item in homeRecommend" :key="item.id" class="rounded-xl relative item overflow-hidden">
+          <div :style="{ 'background-image': 'url(' + item.cover + ')' }" class="img-bg bg-cover" />
+          <div class="flex absolute top-4 justify-between px-4 w-full">
+            <avatar :id="item.user.user_id" :avatar="item.user.avatar" :nickname="item.user.nickname" />
+            <fd-button :followed="item.followed" @click="follow(item.user.user_id)">{{ item.followed?'已关注':'关  注' }}</fd-button>
           </div>
           <div class="px-4 pb-2 bg-white">
             <router-link :to="`/work/${item.id}`" class="py-2 h-30 inline-block text-black ellipsis-1">{{ item.title }}</router-link>
@@ -204,6 +199,7 @@ export default Vue.extend({
   .img-bg {
     width: 100%;
     height: 194px;
+    filter: brightness(0.5);
   }
   .img-bg2 {
     width: 353px;

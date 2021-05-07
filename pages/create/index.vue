@@ -234,7 +234,7 @@ export default {
       form: {
         title: '',
         desc: '',
-        content: '',
+        content: '<p>写点什么叭~</p>',
         cover: '',
         type: ''
       },
@@ -243,11 +243,8 @@ export default {
   },
   mounted () {
     this.editor = new Editor({
-      content: `
-          <p>写点什么叭~</p>
-        `,
+      content: '<p>写点什么叭~</p>',
       onUpdate: ({ getHTML }) => {
-        // get new content on update
         this.form.content = getHTML()
       },
       extensions: [
@@ -277,8 +274,8 @@ export default {
   },
   methods: {
     saveStar () {
-      addWorkApi(this.form).then(val => {
-        console.log(val)
+      addWorkApi(this.form).then(_ => {
+        this.$router.go(0)
       })
     },
     showImagePrompt (command) {

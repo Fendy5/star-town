@@ -1,12 +1,11 @@
 <template>
   <div>
     <div class="grid grid-cols-3 pb-6 gap-y-6">
-      <div v-for="item in list" :key="item.id" class="rounded-xl item overflow-hidden">
-        <div :style="{ 'background-image': 'url(' + item.cover + ')' }" class="img-bg bg-cover">
-          <div class="flex justify-between pt-4 px-4">
-            <avatar :id="item.user.user_id" :avatar="item.user.avatar" :nickname="item.user.nickname" />
-            <fd-button :followed="item.followed" @click="follow(item.user.user_id)">{{ item.followed?'已关注':'关  注' }}</fd-button>
-          </div>
+      <div v-for="item in list" :key="item.id" class="rounded-xl item overflow-hidden relative">
+        <div :style="{ 'background-image': 'url(' + item.cover + ')' }" class="img-bg bg-cover" />
+        <div class="flex justify-between pt-4 px-4 absolute top-4 w-full">
+          <avatar :id="item.user.user_id" :avatar="item.user.avatar" :nickname="item.user.nickname" />
+          <fd-button :followed="item.followed" @click="follow(item.user.user_id)">{{ item.followed?'已关注':'关  注' }}</fd-button>
         </div>
         <div class="px-4 pb-2 bg-white">
           <router-link :to="`/work/${item.id}`" class="py-2 h-30 inline-block text-black ellipsis-1">{{ item.title }}</router-link>

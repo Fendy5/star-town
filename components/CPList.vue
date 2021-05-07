@@ -1,9 +1,8 @@
 <template>
   <div class="my-4 grid grid-cols-4 place-items-center">
-    <div v-for="(i,index) in cpList" :key="i.id" class="cp-list-item">
-      <div :style="{background:`url(${i.cover}) no-repeat 50% 50%`}" class="cover">
-        <div class="pl-6 pt-4 text-white text-3xl">No.{{ index+1 }}</div>
-      </div>
+    <div v-for="(i,index) in cpList" :key="i.id" class="cp-list-item relative">
+      <div :style="{background:`url(${i.cover}) no-repeat 50% 50%`}" class="cover" />
+      <div class="left-6 text-white absolute text-3xl top-4 px-4">No.{{ index+1 }}</div>
       <div class="pt-3 pb-4 flex justify-between px-4 bg-white rounded">
         <div class="">
           <div class="flex items-center">
@@ -22,11 +21,11 @@
 </template>
 
 <script>
-import FdButton from '@/components/FdButton'
+// import FdButton from '@/components/FdButton'
 export default {
-  components: {
-    FdButton
-  },
+  // components: {
+  //   FdButton
+  // },
   props: {
     cpList: {
       type: Array,
@@ -45,6 +44,7 @@ export default {
   .cover {
     width: 100%;
     height: 200px;
+    filter: brightness(0.5);
   }
 }
 </style>
