@@ -73,11 +73,11 @@
         </div>
 
         <svg-icon v-if="loading" class="mx-auto" icon-class="loading" />
-        <like-list v-if="tab===0 && !loading" :list="likeList" @changeFollow="follow" />
+        <like-list v-if="tab===0 && !loading" :list="likeList" @like="myLike" @changeFollow="follow" />
         <comment-list v-else-if="tab===1 && !loading" :comment-list="commentList" />
         <avatar-list v-else-if="tab===3 && !loading" :list="follows" />
         <avatar-list v-else-if="tab===4 && !loading" :list="fans" />
-        <like-list v-else-if="!loading" :list="createList" @changeFollow="getMyCreate" />
+        <like-list v-else-if="!loading" :list="createList" @like="likeCreate" @changeFollow="getMyCreate" />
       </div>
     </div>
     <div :style="{display:dialog}" class="login rounded-2xl px-11 pb-14">
@@ -102,6 +102,7 @@ import CommentList from '@/pages/user/components/CommentList'
 import AvatarList from '@/pages/user/components/AvatarList'
 import { addCircle } from '@/api/circle'
 import { getMyCommentApi, getMyCreate, getMyFansApi, getMyFollowApi, getMyLikeApi, getUserCenterApi } from '@/api/user'
+import { likeApi } from '@/api/like'
 export default {
   // middleware: 'auth',
   components: {
@@ -143,6 +144,28 @@ export default {
     this.initPage()
   },
   methods: {
+    likeCreate (workId, index) {
+      const hasLike = this.createList[index].has_like
+      if (hasLike) {
+        this.createList[index].has_like = false
+        this.createList[index].likes -= 1
+      } else {
+        this.createList[index].has_like = true
+        this.createList[index].likes += 1
+      }
+      likeApi({ work_id: workId })
+    },
+    myLike (workId, index) {
+      const hasLike = this.likeList[index].has_like
+      if (hasLike) {
+        this.likeList[index].has_like = false
+        this.likeList[index].likes -= 1
+      } else {
+        this.likeList[index].has_like = true
+        this.likeList[index].likes += 1
+      }
+      likeApi({ work_id: workId })
+    },
     initPage () {
       getUserCenterApi({ id: this.userId }).then(value => {
         this.user = value.data.user

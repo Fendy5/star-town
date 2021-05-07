@@ -23,7 +23,7 @@
         <p class="text-center text-2xl">空空如也</p>
       </div>
       <div v-else class="rounded-xl star-recommended grid grid-cols-4 gap-6 place-items-end mb-8">
-        <div v-for="item in homeRecommend" :key="item.id" class="rounded-xl relative item overflow-hidden">
+        <div v-for="(item,index) in homeRecommend" :key="item.id" class="rounded-xl relative item overflow-hidden">
           <div :style="{ 'background-image': 'url(' + item.cover + ')' }" class="img-bg bg-cover" />
           <div class="flex absolute top-4 justify-between px-4 w-full">
             <avatar :id="item.user.user_id" :avatar="item.user.avatar" :nickname="item.user.nickname" />
@@ -38,7 +38,7 @@
               <!--   评论、喜欢-->
               <div class="flex">
                 <!--   喜欢-->
-                <div class="flex items-center pr-2 cursor-pointer" @click="like(item.id)">
+                <div :class="{'red':item.has_like}" class="flex items-center pr-2 cursor-pointer" @click="recommendRank(item.id,index)">
                   <svg-icon icon-class="like" class="w-4 h-4 mr-1" />
                   <div class="">{{ item.likes }}</div>
                 </div>
@@ -65,12 +65,11 @@
           <p class="text-center text-2xl">空空如也</p>
         </div>
         <div v-else class="mt-12 pb-16 rounded-xl star-recommended flex justify-between flex-wrap">
-          <div v-for="i in rankList" :key="i.id" class="rounded-xl overflow-hidden item rank mb-6">
-            <div :style="{ 'background-image': 'url(' + i.cover + ')' }" class="img-bg2 bg-cover">
-              <div class="flex justify-between pt-4 px-4">
-                <avatar :id="i.user.user_id" class="ml-4" :avatar="i.user.avatar" :nickname="i.user.nickname" />
-                <fd-button :followed="i.followed" @click="follow(i.user.user_id)">{{ i.followed?'已关注':'关  注' }}</fd-button>
-              </div>
+          <div v-for="(i,index) in rankList" :key="i.id" class="rounded-xl overflow-hidden item rank mb-6 relative">
+            <div :style="{ 'background-image': 'url(' + i.cover + ')' }" class="img-bg2 bg-cover" />
+            <div class="flex justify-between pt-4 px-4 absolute top-4 w-full">
+              <avatar :id="i.user.user_id" class="ml-4" :avatar="i.user.avatar" :nickname="i.user.nickname" />
+              <fd-button :followed="i.followed" @click="follow(i.user.user_id)">{{ i.followed?'已关注':'关  注' }}</fd-button>
             </div>
             <div class="pl-4 pb-2 bg-white rounded-xl">
               <div class="py-2 text-black cursor-pointer">{{ i.title }}</div>
@@ -81,7 +80,7 @@
                 <!--   评论、喜欢-->
                 <div class="flex">
                   <!--   喜欢-->
-                  <div class="flex items-center pr-2 cursor-pointer" @click="like(i.id)">
+                  <div :class="{'red':i.has_like}" class="flex items-center pr-2 cursor-pointer" @click="likeRank(i.id,index)">
                     <svg-icon icon-class="like" class="w-4 h-4 mr-1" />
                     <div class="">{{ i.likes }}</div>
                   </div>
@@ -155,8 +154,28 @@ export default Vue.extend({
         }
       })
     },
-    // 点赞
-    like (workId: number) {
+    // 点赞（推荐榜）
+    recommendRank (workId: number, index: number) {
+      const hasLike = this.homeRecommend[index].has_like
+      if (hasLike) {
+        this.homeRecommend[index].has_like = false
+        this.homeRecommend[index].likes -= 1
+      } else {
+        this.homeRecommend[index].has_like = true
+        this.homeRecommend[index].likes += 1
+      }
+      likeApi({ work_id: workId })
+    },
+    // 点赞（排行榜）
+    likeRank (workId: number, index: number) {
+      const hasLike = this.rankList[index].has_like
+      if (hasLike) {
+        this.rankList[index].has_like = false
+        this.rankList[index].likes -= 1
+      } else {
+        this.rankList[index].has_like = true
+        this.rankList[index].likes += 1
+      }
       likeApi({ work_id: workId })
     },
     // 切换排行榜
@@ -202,6 +221,7 @@ export default Vue.extend({
     filter: brightness(0.5);
   }
   .img-bg2 {
+    filter: brightness(0.5);
     width: 353px;
     height: 337px;
   }

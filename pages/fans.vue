@@ -26,7 +26,7 @@
           <svg-icon v-if="loading.art" class="mx-auto" icon-class="loading" />
           <div v-else>
             <div v-if="artList.length">
-              <art-list :art-list="artList" @changeFollow="follow" />
+              <art-list :art-list="artList" @like="likeArt" @changeFollow="follow" />
               <div class="text-center">
                 <fd-button plain size="medium" @click="goArtStar">更多</fd-button>
               </div>
@@ -50,6 +50,7 @@ import ArtList from '@/components/ArtList'
 import fdButton from '@/components/FdButton'
 import { getWorksApi } from '@/api/fans'
 import { getCircleApi } from '@/api/circle'
+import { likeApi } from '@/api/like'
 
 export default {
   components: {
@@ -91,6 +92,17 @@ export default {
     this.initPage()
   },
   methods: {
+    likeArt (workId, index) {
+      const hasLike = this.artList[index].has_like
+      if (hasLike) {
+        this.artList[index].has_like = false
+        this.artList[index].likes -= 1
+      } else {
+        this.artList[index].has_like = true
+        this.artList[index].likes += 1
+      }
+      likeApi({ work_id: workId })
+    },
     handleSearch (value) {
       this.keywords = value
       this.loading.art = true
