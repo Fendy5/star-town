@@ -101,7 +101,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from 'vue'
 import fdButton from '@/components/FdButton.vue'
 import Avatar from '@/components/Avatar.vue'
@@ -146,8 +146,8 @@ export default Vue.extend({
         this.loading.recommend = false
       })
     },
-    follow (id:number) {
-      addFollowApi({ follow_id: id }).then((val:any) => {
+    follow (id) {
+      addFollowApi({ follow_id: id }).then((val) => {
         if (val.code === 0) {
           this.getArtList()
           this.tab === 0 ? this.getRecommend() : this.getNewestWorks()
@@ -155,7 +155,7 @@ export default Vue.extend({
       })
     },
     // 点赞（推荐榜）
-    recommendRank (workId: number, index: number) {
+    recommendRank (workId, index) {
       const hasLike = this.homeRecommend[index].has_like
       if (hasLike) {
         this.homeRecommend[index].has_like = false
@@ -167,7 +167,7 @@ export default Vue.extend({
       likeApi({ work_id: workId })
     },
     // 点赞（排行榜）
-    likeRank (workId: number, index: number) {
+    likeRank (workId, index) {
       const hasLike = this.rankList[index].has_like
       if (hasLike) {
         this.rankList[index].has_like = false
@@ -179,7 +179,7 @@ export default Vue.extend({
       likeApi({ work_id: workId })
     },
     // 切换排行榜
-    changeRankTab (index: number) {
+    changeRankTab (index) {
       this.rankTab = index
       this.loading.rank = true
       this.getArtList()
@@ -191,7 +191,7 @@ export default Vue.extend({
       })
     },
     // 切换推荐
-    changeTab (index: number) {
+    changeTab (index) {
       this.tab = index
       this.loading.recommend = true
       index === 0 ? this.getRecommend() : this.getNewestWorks()
