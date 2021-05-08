@@ -7,8 +7,8 @@
         <div class="">
           <div class="flex items-center">
             <div class="flex mr-2">
-              <img class="w-6 h-6 rounded-full" :src="i.users[0].avatar" alt="">
-              <img class="w-6 h-6 rounded-full ml-2" :src="i.users[1].avatar" alt="">
+              <img class="w-6 h-6 rounded-full" :src="i.users[0] && i.users[0].avatar" alt="">
+              <img class="w-6 h-6 rounded-full ml-2" :src="i.users[1] && i.users[1].avatar" alt="">
             </div>
             <NuxtLink :to="`/fans?cc_id=${i.id}`">{{ i.name }}</NuxtLink>
           </div>
