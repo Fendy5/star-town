@@ -222,7 +222,10 @@ export default {
     },
     bind () {
       addCircle(this.form).then(val => {
-        if (val.code === 0) { this.dialog = 'none' }
+        if (val.code === 0) {
+          // this.dialog = 'none'
+          this.$router.go(0)
+        }
       })
     },
     changeTab (val) {
