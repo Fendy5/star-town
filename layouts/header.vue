@@ -107,7 +107,7 @@ export default {
         type: 'warning'
       }).then(() => {
         this.$store.dispatch('logout')
-        this.$router.go(0)
+        this.$router.replace('/')
       })
     },
     // 登录
