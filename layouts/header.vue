@@ -81,11 +81,11 @@ export default {
   data () {
     return {
       form: {
-        nickname: 'Fendy',
-        phone: '15625701754',
-        password: '123456'
+        nickname: '',
+        phone: '',
+        password: ''
       },
-      re_password: '123456',
+      re_password: '',
       loginActive: 0 // 0-登录，1-注册
     }
   },
