@@ -22,8 +22,8 @@
           <h3 class="text-2xl font-medium">{{ work.title }}</h3>
           <div class="pt-4 text-secondary">{{ work.create_time }}</div>
         </div>
-        <div class="pt-20" v-html="work.content" />
-        <div class="py-8">
+        <div class="pt-20 article" v-html="work.content" />
+        <div class="py-8 article">
           <div class="float-right flex">
             <!--   喜欢-->
             <div class="flex items-center pr-2 cursor-pointer">
@@ -44,10 +44,10 @@
           resize="none"
           placeholder="请输入评论内容"
         />
-        <div class="flex justify-end py-4">
+        <div class="flex justify-end py-4 article">
           <fd-button plain size="medium" @click="handleComment">确定</fd-button>
         </div>
-        <div class="pt-7 divide-y divide-gray-400 divide-opacity-25">
+        <div class="pt-7 divide-y divide-gray-400 divide-opacity-25 article">
           <div v-for="i in comments" :key="i.id">
             <div class="flex justify-between pt-8">
               <div class="flex">
@@ -170,5 +170,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.article {
+  max-width: 680px;
+  margin: 0 auto;
+}
+::v-deep .el-textarea__inner{
+  @extend .article;
+  display: block;
+}
 </style>
